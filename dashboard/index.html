@@ -1,239 +1,67 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The Leap — Dashboard</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Make The Leap — Dashboard</title>
+  <link rel="stylesheet" href="styles.css?v=dashboard-real-2" />
 </head>
 <body>
-
-  <!-- Mobile top bar -->
-  <header class="mobile-bar">
-    <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-        <rect y="4" width="22" height="2" rx="1" fill="#5c3d2e"/>
-        <rect y="10" width="22" height="2" rx="1" fill="#5c3d2e"/>
-        <rect y="16" width="22" height="2" rx="1" fill="#5c3d2e"/>
-      </svg>
-    </button>
-    <span class="mobile-logo">THE <span class="logo-l">ℒ</span>EAP</span>
-    <span class="mobile-welcome">Welcome, claralid 👋</span>
-  </header>
-
-  <div class="layout">
-
-    <!-- Sidebar overlay for mobile -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-top">
-        <div class="logo">THE <span class="logo-l">ℒ</span>EAP</div>
+  <div class="canvas">
+    <aside class="sidebar">
+      <div class="logo" aria-label="The Leap">
+        <svg viewBox="0 0 136 21" aria-hidden="true"><path d="M96.056 4.099h-9.515v4.538h8.673v3.451h-8.676v4.407h9.518v3.444H82.608V.654h13.448v3.445ZM113.931 19.939l-1.628-4.684h-9.262l-1.63 4.684h-4.067L104.304.654h6.736l6.963 19.285h-4.072ZM107.672 2.391l-3.424 9.42h6.851l-3.427-9.42ZM128.639.654c4.237 0 6.736 2.424 6.736 6.034 0 3.719-2.499 6.392-6.736 6.392h-4.597v6.86h-3.938V.654h8.535Zm-.842 8.981c2.694 0 3.677-.991 3.677-2.947s-1.217-2.589-3.677-2.589h-3.755v5.536h3.755ZM60.999 16.192c0-2.644 2.434-4.739 5.5-4.739.574-.008 1.146.057 1.703.194L70.784.659h3.76L71.551 13.245c2.078 1.459 3.874 3.251 6.989 3.251v3.444c-3.339 0-5.697-1.911-7.831-3.416-.73 2.15-1.964 3.822-5.023 3.822-2.947.007-4.687-2.047-4.687-4.154Zm3.675-.026c0 .477.365.852 1.039.852s1.404-.743 1.703-2.066l.027-.164a3.6 3.6 0 0 0-.973-.139c-.981 0-1.806.69-1.806 1.517h.01ZM5.753 19.937V4.099H0V.654h15.465v3.445H9.683v15.838h-3.93ZM34.773.654v19.283h-3.928V12.031h-9.179v7.906h-3.928V.654h3.928v7.933h9.179V.654h3.928ZM52.212 4.099H42.69v4.538h8.671v3.439H42.69v4.407h9.522v3.445H38.759V.654h13.453v3.445Z"/></svg>
       </div>
 
-      <nav class="sidebar-nav">
-        <a href="#" class="nav-item active">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <path d="M3 10.5L10 4l7 6.5V17a1 1 0 01-1 1H4a1 1 0 01-1-1v-6.5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-            <path d="M7.5 18v-5h5v5" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
-          </svg>
-          <span>Home</span>
-        </a>
-        <a href="#" class="nav-item">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <rect x="2.5" y="2.5" width="6.5" height="6.5" rx="1" stroke="currentColor" stroke-width="1.5"/>
-            <rect x="11" y="2.5" width="6.5" height="6.5" rx="1" stroke="currentColor" stroke-width="1.5"/>
-            <rect x="2.5" y="11" width="6.5" height="6.5" rx="1" stroke="currentColor" stroke-width="1.5"/>
-            <rect x="11" y="11" width="6.5" height="6.5" rx="1" stroke="currentColor" stroke-width="1.5"/>
-          </svg>
-          <span>Products</span>
-        </a>
-        <a href="#" class="nav-item">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <path d="M3 6a1 1 0 011-1h12a1 1 0 011 1v1.5H3V6z" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M3 7.5h14V16a1 1 0 01-1 1H4a1 1 0 01-1-1V7.5z" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M8 11h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          <span>Store</span>
-        </a>
-        <a href="#" class="nav-item">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <path d="M4 14l4-4 3 3 5-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <span>Analytics</span>
-        </a>
-        <a href="#" class="nav-item">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <circle cx="10" cy="7" r="3.5" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M3.5 17c0-3.038 2.91-5.5 6.5-5.5s6.5 2.462 6.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          <span>Contacts</span>
-        </a>
-        <a href="#" class="nav-item">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <rect x="2.5" y="4.5" width="15" height="11" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M2.5 7.5l7.5 5 7.5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          <span>Email</span>
-        </a>
-        <a href="#" class="nav-item">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <rect x="3" y="4" width="14" height="13" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M3 8h14" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M7 3v2M13 3v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          <span>Calendar</span>
-        </a>
-        <a href="#" class="nav-item">
-          <svg class="nav-icon" viewBox="0 0 20 20" fill="none">
-            <circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M10 3v2M10 15v2M3 10h2M15 10h2M5.05 5.05l1.41 1.41M13.54 13.54l1.41 1.41M5.05 14.95l1.41-1.41M13.54 6.46l1.41-1.41" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          <span>Assistant</span>
-          <span class="badge beta">Beta</span>
-        </a>
+      <nav class="nav">
+        <a class="nav-item active" href="#"><span class="ico home"></span>Home</a>
+        <a class="nav-item" href="#"><span class="ico grid"></span>Products</a>
+        <a class="nav-item" href="#"><span class="ico shop"></span>Store</a>
+        <a class="nav-item" href="#"><span class="ico chart"></span>Analytics</a>
+        <a class="nav-item" href="#"><span class="ico people"></span>Contacts</a>
+        <a class="nav-item" href="#"><span class="ico mail"></span>Email</a>
+        <a class="nav-item" href="#"><span class="ico cal"></span>Calendar</a>
+        <a class="nav-item" href="#"><span class="ico sparkle"></span>Assistant <span class="badge">Beta</span></a>
+        <a class="pro" href="#">Try Pro 🚀</a>
       </nav>
 
-      <div class="sidebar-footer">
-        <button class="try-pro-btn">
-          Try Pro <span class="sparkle">✦</span>
-        </button>
-        <div class="user-area">
-          <div class="user-avatar">
-            <svg viewBox="0 0 32 32" fill="none">
-              <circle cx="16" cy="16" r="16" fill="#c8a882"/>
-              <circle cx="16" cy="13" r="5" fill="#a07850"/>
-              <ellipse cx="16" cy="26" rx="9" ry="6" fill="#a07850"/>
-            </svg>
-          </div>
-          <span class="user-handle">@claralid</span>
-          <svg class="chevron-up" viewBox="0 0 12 12" fill="none">
-            <path d="M2 8l4-4 4 4" stroke="#8a6a5a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-      </div>
+      <button class="account" type="button"><span class="avatar"></span><span>@claralid</span><span class="up">⌃</span></button>
     </aside>
 
-    <!-- Main area -->
     <main class="main">
-      <!-- Top bar -->
-      <div class="topbar">
-        <div class="topbar-left">
-          <span class="welcome-text">Welcome, claralid 👋</span>
+      <header class="topbar">
+        <div class="welcome">Welcome, <strong>claralid</strong> 👋</div>
+        <a class="view-store" href="#"><span class="globe">◯</span>View my store</a>
+      </header>
+
+      <section class="panel">
+        <h1>Get started</h1>
+        <div class="cards">
+          <article class="card">
+            <div class="card-icon orange"><span class="ico shop"></span></div>
+            <div class="copy"><h2>Set up my creator store</h2><p>Create a place to showcase your products and services, share your link and start driving traffic today.</p></div>
+            <a class="btn" href="#">Customize store</a>
+          </article>
+          <article class="card">
+            <div class="card-icon pink"><span class="upload">↑</span></div>
+            <div class="copy"><h2>Sell an existing product or service</h2><p>Start selling right now, by offering products including Digital downloads, Ask Me Anything services and Coaching.</p></div>
+            <a class="btn" href="#">Sell what you have</a>
+          </article>
+          <article class="card">
+            <div class="card-icon blue"><span class="ico grid"></span></div>
+            <div class="copy"><h2>Create a mobile product with AI</h2><p>Creators with mobile products earn 64% more. Create one from scratch in minutes.</p></div>
+            <a class="btn" href="#"><span>✦</span>Create a product</a>
+          </article>
+          <article class="card">
+            <div class="card-icon green"><span class="ico mail"></span></div>
+            <div class="copy"><h2>Launch an email campaign</h2><p>Build deeper relationships with your contacts, put lead nurturing and selling on auto-pilot.</p></div>
+            <a class="btn" href="#">Start emailing</a>
+          </article>
         </div>
-        <div class="topbar-right">
-          <a href="#" class="view-store-btn">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.2"/>
-              <ellipse cx="8" cy="8" rx="3" ry="6.5" stroke="currentColor" stroke-width="1.2"/>
-              <path d="M1.5 8h13M2 5h12M2 11h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
-            </svg>
-            View my store
-          </a>
-        </div>
-      </div>
-
-      <!-- Content area -->
-      <div class="content">
-        <h1 class="page-title">Get started</h1>
-
-        <div class="cards-list">
-
-          <!-- Card 1: Set up creator store -->
-          <div class="action-card">
-            <div class="card-icon orange">
-              <svg viewBox="0 0 28 28" fill="none">
-                <rect x="4" y="4" width="8.5" height="8.5" rx="1.5" fill="currentColor" opacity="0.85"/>
-                <rect x="15.5" y="4" width="8.5" height="8.5" rx="1.5" fill="currentColor" opacity="0.85"/>
-                <rect x="4" y="15.5" width="8.5" height="8.5" rx="1.5" fill="currentColor" opacity="0.85"/>
-                <rect x="15.5" y="15.5" width="8.5" height="8.5" rx="1.5" fill="currentColor" opacity="0.85"/>
-              </svg>
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">Set up my creator store</h3>
-              <p class="card-desc">Create a place to showcase your products and services, share your link and start driving traffic today.</p>
-            </div>
-            <div class="card-action">
-              <button class="card-btn">Customize store</button>
-            </div>
-          </div>
-
-          <!-- Card 2: Sell existing product -->
-          <div class="action-card">
-            <div class="card-icon pink">
-              <svg viewBox="0 0 28 28" fill="none">
-                <circle cx="14" cy="14" r="9" stroke="currentColor" stroke-width="2"/>
-                <path d="M14 18V10M10 13.5l4-4 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">Sell an existing product or service</h3>
-              <p class="card-desc">Start selling right now, by offering products including Digital downloads, Ask Me Anything services and Coaching.</p>
-            </div>
-            <div class="card-action">
-              <button class="card-btn">Sell what you have</button>
-            </div>
-          </div>
-
-          <!-- Card 3: Create mobile product with AI -->
-          <div class="action-card">
-            <div class="card-icon blue">
-              <svg viewBox="0 0 28 28" fill="none">
-                <rect x="4" y="3" width="8" height="10" rx="1.5" stroke="currentColor" stroke-width="1.8"/>
-                <rect x="16" y="3" width="8" height="5" rx="1.5" stroke="currentColor" stroke-width="1.8"/>
-                <rect x="16" y="11.5" width="8" height="13.5" rx="1.5" stroke="currentColor" stroke-width="1.8"/>
-                <rect x="4" y="16.5" width="8" height="8" rx="1.5" stroke="currentColor" stroke-width="1.8"/>
-              </svg>
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">Create a mobile product with AI</h3>
-              <p class="card-desc">Creators with mobile products earn 64% more. Create one from scratch in minutes.</p>
-            </div>
-            <div class="card-action">
-              <button class="card-btn"><span class="sparkle-sm">✦</span> Create a product</button>
-            </div>
-          </div>
-
-          <!-- Card 4: Launch email campaign -->
-          <div class="action-card">
-            <div class="card-icon green">
-              <svg viewBox="0 0 28 28" fill="none">
-                <rect x="3" y="7" width="22" height="15" rx="2" stroke="currentColor" stroke-width="1.8"/>
-                <path d="M3 10l11 7 11-7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">Launch an email campaign</h3>
-              <p class="card-desc">Build deeper relationships with your contacts, put lead nurturing and selling on auto-pilot.</p>
-            </div>
-            <div class="card-action">
-              <button class="card-btn">Start emailing</button>
-            </div>
-          </div>
-
-        </div>
-      </div>
+      </section>
     </main>
+
+    <button class="help" type="button">ⓘ Help</button>
   </div>
-
-  <!-- Help floating button -->
-  <button class="help-btn">
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <circle cx="8" cy="8" r="6.5" stroke="white" stroke-width="1.4"/>
-      <path d="M6 6.5C6 5.4 6.9 4.5 8 4.5s2 .9 2 2c0 1-.6 1.5-1.3 2-.4.3-.7.7-.7 1.2" stroke="white" stroke-width="1.4" stroke-linecap="round"/>
-      <circle cx="8" cy="12" r=".8" fill="white"/>
-    </svg>
-    Help
-  </button>
-
-  <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const overlay = document.getElementById('sidebarOverlay');
-      sidebar.classList.toggle('open');
-      overlay.classList.toggle('visible');
-    }
-  </script>
 </body>
 </html>
