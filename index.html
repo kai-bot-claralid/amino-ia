@@ -136,77 +136,119 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
             <link href="https://cdn.shortpixel.ai" rel="preconnect" crossorigin>
 <style>
 /* Language selector */
-.menu-item-lang-selector {
+.navigation-menu .menu .menu-item.menu-item-lang-selector {
   position: relative;
   display: flex !important;
   align-items: center;
+  justify-content: center;
+  margin: auto 0 auto auto !important;
+  z-index: 1003;
+}
+.navigation-menu .menu .menu-item.menu-item-login {
+  margin: auto 0 auto .75rem !important;
+}
+.navigation-menu .menu .menu-item.menu-item-signup {
+  margin: auto 0 auto .75rem !important;
 }
 .lang-selector-btn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: none;
-  background: transparent;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid #482317;
+  background: #f0edee;
   cursor: pointer;
   padding: 0;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 1;
   overflow: hidden;
+  box-shadow: 0 1px 0 rgba(255,255,255,.7) inset;
+  transition: background .15s ease, box-shadow .15s ease, transform .15s ease;
 }
-.lang-selector-btn:focus {
-  outline: 2px solid rgba(0,0,0,0.2);
-  outline-offset: 2px;
+.lang-selector-btn:hover,
+.menu-item-lang-selector.open .lang-selector-btn {
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(236,249,86,.65), 0 1px 0 rgba(255,255,255,.7) inset;
+}
+.lang-selector-btn:focus-visible {
+  outline: 2px solid #482317;
+  outline-offset: 3px;
+}
+.lang-selector-btn .lang-flag {
+  width: 100%;
+  height: 100%;
+  font-size: 21px;
+  line-height: 38px;
 }
 .lang-dropdown {
   display: none;
   position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  width: 168px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-  list-style: none;
-  margin: 0;
-  padding: 6px 0;
-  z-index: 9999;
+  top: calc(100% + 12px);
+  right: 50%;
+  transform: translateX(50%);
+  width: 178px;
+  min-width: 178px;
+  background: #ffffff;
+  border: 1px solid #482317;
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(72,35,23,.16);
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 7px 0 !important;
+  z-index: 10050;
+  text-transform: none;
 }
-.lang-dropdown.open {
+.lang-dropdown.open,
+.menu-item-lang-selector:hover .lang-dropdown {
   display: block;
+}
+.lang-dropdown::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  right: 50%;
+  transform: translateX(50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: #ffffff;
+  border-left: 1px solid #482317;
+  border-top: 1px solid #482317;
 }
 .lang-option {
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
+  box-sizing: border-box;
   padding: 9px 14px;
   cursor: pointer;
+  font-family: Favorit, sans-serif;
   font-size: 15px;
-  color: #2d2d2d;
+  line-height: 1.1;
+  color: #482317;
   white-space: nowrap;
-  transition: background 0.1s;
+  transition: background .12s ease;
 }
 .lang-option:hover,
 .lang-option.active {
-  background: #f0f0f0;
+  background: #f0edee;
 }
-.lang-flag {
-  font-size: 22px;
+.lang-option .lang-flag {
+  font-size: 18px;
   line-height: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   overflow: hidden;
-  flex-shrink: 0;
+  flex: 0 0 24px;
 }
 @media (max-width: 768px) {
-  .menu-item-lang-selector {
+  .navigation-menu .menu .menu-item.menu-item-lang-selector {
     display: none !important;
   }
 }
@@ -1161,7 +1203,8 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 (function() {
   var btn = document.getElementById('lang-btn');
   var dropdown = document.getElementById('lang-dropdown');
-  if (!btn || !dropdown) return;
+  var item = document.getElementById('menu-item-lang');
+  if (!btn || !dropdown || !item) return;
 
   var flags = {
     en: '🇬🇧', es: '🇪🇸', fr: '🇫🇷', pt: '🇧🇷', de: '🇩🇪', it: '🇮🇹'
@@ -1169,6 +1212,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 
   function closeDropdown() {
     dropdown.classList.remove('open');
+    item.classList.remove('open');
     btn.setAttribute('aria-expanded', 'false');
   }
 
@@ -1179,6 +1223,7 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
       closeDropdown();
     } else {
       dropdown.classList.add('open');
+      item.classList.add('open');
       btn.setAttribute('aria-expanded', 'true');
     }
   });
