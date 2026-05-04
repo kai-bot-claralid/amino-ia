@@ -133,7 +133,85 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
                     b.appendChild(s);
                 }(window, document));
             </script>
-            <link href="https://cdn.shortpixel.ai" rel="preconnect" crossorigin></head>
+            <link href="https://cdn.shortpixel.ai" rel="preconnect" crossorigin>
+<style>
+/* Language selector */
+.menu-item-lang-selector {
+  position: relative;
+  display: flex !important;
+  align-items: center;
+}
+.lang-selector-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  font-size: 24px;
+  line-height: 1;
+  overflow: hidden;
+}
+.lang-selector-btn:focus {
+  outline: 2px solid rgba(0,0,0,0.2);
+  outline-offset: 2px;
+}
+.lang-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 168px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  list-style: none;
+  margin: 0;
+  padding: 6px 0;
+  z-index: 9999;
+}
+.lang-dropdown.open {
+  display: block;
+}
+.lang-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #2d2d2d;
+  white-space: nowrap;
+  transition: background 0.1s;
+}
+.lang-option:hover,
+.lang-option.active {
+  background: #f0f0f0;
+}
+.lang-flag {
+  font-size: 22px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+@media (max-width: 768px) {
+  .menu-item-lang-selector {
+    display: none !important;
+  }
+}
+</style>
+</head>
 
 <body class="home wp-singular page-template page-template-page-templates page-template-home-page page-template-page-templateshome-page-php page page-id-5607 wp-embed-responsive wp-theme-theleap-2022 site-wrapper page-www.theleap.co group-blog no-js">
 		<!-- Google Tag Manager (noscript) -->
@@ -190,6 +268,19 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 	<li id="menu-item-3904" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3904"><a href="#">Help Center</a></li>
 	<li id="menu-item-4430" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4430"><a href="#">Changelog</a></li>
 </ul>
+</li>
+<li class="menu-item menu-item-lang-selector" id="menu-item-lang">
+  <button class="lang-selector-btn" aria-label="Select language" aria-expanded="false" aria-haspopup="listbox" type="button" id="lang-btn">
+    <span class="lang-flag">🇬🇧</span>
+  </button>
+  <ul class="lang-dropdown" id="lang-dropdown" role="listbox">
+    <li class="lang-option active" data-lang="en" role="option"><span class="lang-flag">🇬🇧</span> English</li>
+    <li class="lang-option" data-lang="es" role="option"><span class="lang-flag">🇪🇸</span> Español</li>
+    <li class="lang-option" data-lang="fr" role="option"><span class="lang-flag">🇫🇷</span> Français</li>
+    <li class="lang-option" data-lang="pt" role="option"><span class="lang-flag">🇧🇷</span> Português</li>
+    <li class="lang-option" data-lang="de" role="option"><span class="lang-flag">🇩🇪</span> Deutsch</li>
+    <li class="lang-option" data-lang="it" role="option"><span class="lang-flag">🇮🇹</span> Italiano</li>
+  </ul>
 </li>
 <li id="menu-item-3778" class="menu-item-login menu-item menu-item-type-custom menu-item-object-custom menu-item-3778"><a href="#" class="track-button-login">Sign In</a></li>
 <li id="menu-item-3780" class="menu-item-signup menu-item menu-item-type-custom menu-item-object-custom menu-item-3780"><a href="#" class="track-button-signup">Sign Up Free</a></li>
@@ -1066,6 +1157,58 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 {"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/theleap-2022/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
 </script>
 <script src="js/tableberg-frontend.js" id="tableberg-frontend-script-js"></script>
+<script>
+(function() {
+  var btn = document.getElementById('lang-btn');
+  var dropdown = document.getElementById('lang-dropdown');
+  if (!btn || !dropdown) return;
+
+  var flags = {
+    en: '🇬🇧', es: '🇪🇸', fr: '🇫🇷', pt: '🇧🇷', de: '🇩🇪', it: '🇮🇹'
+  };
+
+  function closeDropdown() {
+    dropdown.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var isOpen = dropdown.classList.contains('open');
+    if (isOpen) {
+      closeDropdown();
+    } else {
+      dropdown.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  dropdown.addEventListener('click', function(e) {
+    var option = e.target.closest('.lang-option');
+    if (!option) return;
+    var lang = option.getAttribute('data-lang');
+    var flagSpan = btn.querySelector('.lang-flag');
+    if (flagSpan && flags[lang]) {
+      flagSpan.textContent = flags[lang];
+    }
+    dropdown.querySelectorAll('.lang-option').forEach(function(o) {
+      o.classList.remove('active');
+    });
+    option.classList.add('active');
+    closeDropdown();
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
+      closeDropdown();
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeDropdown();
+  });
+}());
+</script>
 <script src="js/index.js" id="wds-scripts-js"></script>
 <script id="wp-emoji-settings" type="application/json">
 {"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://www.theleap.co/wp-includes/js/wp-emoji-release.min.js?ver=6.9.4"}}
