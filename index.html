@@ -271,6 +271,101 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
     display: none !important;
   }
 }
+.mobile-menu .mobile-menu-lang-selector {
+  margin: 18px 0 8px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  list-style: none !important;
+}
+.mobile-lang-selector-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #482317;
+  border-radius: 999px;
+  background: #f0edee;
+  color: #482317;
+  cursor: pointer;
+  font-family: Favorit, sans-serif;
+  font-size: 18px;
+  line-height: 1;
+  padding: 13px 18px;
+  text-align: left;
+}
+.mobile-lang-selector-btn:hover,
+.mobile-menu-lang-selector.open .mobile-lang-selector-btn {
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(236,249,86,.55);
+}
+.mobile-lang-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.mobile-lang-caret {
+  font-size: 14px;
+  transition: transform .15s ease;
+}
+.mobile-menu-lang-selector.open .mobile-lang-caret {
+  transform: rotate(180deg);
+}
+.mobile-lang-dropdown {
+  display: none;
+  width: 100%;
+  box-sizing: border-box;
+  list-style: none !important;
+  margin: 10px 0 0 !important;
+  padding: 7px 0 !important;
+  border: 1px solid #482317;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(72,35,23,.12);
+  overflow: hidden;
+}
+.mobile-lang-dropdown.open,
+.mobile-menu-lang-selector.open .mobile-lang-dropdown {
+  display: block;
+}
+.mobile-menu .mobile-lang-option {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  width: 100% !important;
+  box-sizing: border-box;
+  float: none !important;
+  margin: 0 !important;
+  padding: 12px 16px !important;
+  border: 0 !important;
+  color: #482317;
+  cursor: pointer;
+  font-family: Favorit, sans-serif;
+  font-size: 17px;
+  line-height: 1.1;
+  text-transform: none;
+}
+.mobile-menu .mobile-lang-option:hover,
+.mobile-menu .mobile-lang-option.active {
+  background: #f0edee;
+}
+.mobile-menu .mobile-lang-option::before,
+.mobile-menu .mobile-lang-option::after {
+  content: none !important;
+  display: none !important;
+}
+.mobile-lang-flag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  border-radius: 50%;
+  overflow: hidden;
+  font-size: 19px;
+  line-height: 1;
+}
 </style>
 </head>
 
@@ -1147,24 +1242,38 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 			<div class="menu-primary-container"><ul id="site-mobile-menu" class="mobile-menu"><li class="menu-item-logo menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-24"><a href="https://www.theleap.co" aria-current="page" class="menu-item-logo-image">Home</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-6747"><a href="#">Features</a>
 <ul class="sub-menu">
-	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5612"><a href="https://www.theleap.co/features/">What we do</a></li>
-	<li class="menu-item menu-item-type-post_type menu-item-object-solution menu-item-6746"><a href="https://www.theleap.co/features/link-in-bio-store/">Mobile link-in-bio storefront</a></li>
-	<li class="menu-item menu-item-type-post_type menu-item-object-solution menu-item-6744"><a href="https://www.theleap.co/features/mini-course-builder/">Mini-course builder</a></li>
-	<li class="menu-item menu-item-type-post_type menu-item-object-solution menu-item-6745"><a href="https://www.theleap.co/features/email-marketing-automation/">Email Marketing Automation</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5612"><a href="#">What we do</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-solution menu-item-6746"><a href="#">Mobile link-in-bio storefront</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-solution menu-item-6744"><a href="#">Mini-course builder</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-solution menu-item-6745"><a href="#">Email Marketing Automation</a></li>
 </ul>
 </li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5611"><a href="https://www.theleap.co/pricing/">Pricing</a></li>
-<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4856"><a href="https://www.theleap.co/discover/">Discover</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5611"><a href="#">Pricing</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-4856"><a href="#">Discover</a></li>
 <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-4008"><a href="#">Resources</a>
 <ul class="sub-menu">
-	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26"><a href="https://www.theleap.co/blog/">Blog</a></li>
-	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5840"><a href="https://www.theleap.co/resources/">Free Downloads</a></li>
-	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3904"><a href="https://theleap.zendesk.com/hc/en-us">Help Center</a></li>
-	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4430"><a href="https://www.theleap.co/changelog/">Changelog</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-26"><a href="#">Blog</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-5840"><a href="#">Free Downloads</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3904"><a href="#">Help Center</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-4430"><a href="#">Changelog</a></li>
 </ul>
 </li>
-<li class="menu-item-login menu-item menu-item-type-custom menu-item-object-custom menu-item-3778"><a href="https://accounts.theleap.co/login" class="track-button-login">Sign In</a></li>
-<li class="menu-item-signup menu-item menu-item-type-custom menu-item-object-custom menu-item-3780"><a href="https://accounts.theleap.co/signup" class="track-button-signup">Sign Up Free</a></li>
+<li class="menu-item mobile-menu-lang-selector" id="mobile-menu-lang">
+  <button class="mobile-lang-selector-btn" type="button" aria-label="Select language" aria-expanded="false" aria-haspopup="listbox" id="mobile-lang-btn">
+    <span class="mobile-lang-label"><span class="mobile-lang-flag">🇬🇧</span> Language</span>
+    <span class="mobile-lang-caret">▾</span>
+  </button>
+  <ul class="mobile-lang-dropdown" id="mobile-lang-dropdown" role="listbox">
+    <li class="mobile-lang-option active" data-lang="en" role="option"><span class="mobile-lang-flag">🇬🇧</span> English</li>
+    <li class="mobile-lang-option" data-lang="es" role="option"><span class="mobile-lang-flag">🇪🇸</span> Español</li>
+    <li class="mobile-lang-option" data-lang="fr" role="option"><span class="mobile-lang-flag">🇫🇷</span> Français</li>
+    <li class="mobile-lang-option" data-lang="pt" role="option"><span class="mobile-lang-flag">🇧🇷</span> Português</li>
+    <li class="mobile-lang-option" data-lang="de" role="option"><span class="mobile-lang-flag">🇩🇪</span> Deutsch</li>
+    <li class="mobile-lang-option" data-lang="it" role="option"><span class="mobile-lang-flag">🇮🇹</span> Italiano</li>
+  </ul>
+</li>
+<li class="menu-item-login menu-item menu-item-type-custom menu-item-object-custom menu-item-3778"><a href="#" class="track-button-login">Sign In</a></li>
+<li class="menu-item-signup menu-item menu-item-type-custom menu-item-object-custom menu-item-3780"><a href="#" class="track-button-signup">Sign Up Free</a></li>
 </ul></div>
 			<div class="site-footer-social">
 						<a class="social-nav-icon"
@@ -1270,6 +1379,60 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeDropdown();
+  });
+}());
+
+(function() {
+  var btn = document.getElementById('mobile-lang-btn');
+  var dropdown = document.getElementById('mobile-lang-dropdown');
+  var item = document.getElementById('mobile-menu-lang');
+  if (!btn || !dropdown || !item) return;
+
+  var flags = {
+    en: '🇬🇧', es: '🇪🇸', fr: '🇫🇷', pt: '🇧🇷', de: '🇩🇪', it: '🇮🇹'
+  };
+
+  function closeMobileDropdown() {
+    dropdown.classList.remove('open');
+    item.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var isOpen = dropdown.classList.contains('open');
+    if (isOpen) {
+      closeMobileDropdown();
+    } else {
+      dropdown.classList.add('open');
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  dropdown.addEventListener('click', function(e) {
+    var option = e.target.closest('.mobile-lang-option');
+    if (!option) return;
+    var lang = option.getAttribute('data-lang');
+    var flagSpan = btn.querySelector('.mobile-lang-flag');
+    if (flagSpan && flags[lang]) {
+      flagSpan.textContent = flags[lang];
+    }
+    dropdown.querySelectorAll('.mobile-lang-option').forEach(function(o) {
+      o.classList.remove('active');
+    });
+    option.classList.add('active');
+    closeMobileDropdown();
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
+      closeMobileDropdown();
+    }
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeMobileDropdown();
   });
 }());
 </script>
