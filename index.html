@@ -366,6 +366,77 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
   font-size: 19px;
   line-height: 1;
 }
+.mobile-header-lang {
+  display: none;
+  position: relative;
+  margin-left: auto;
+  margin-right: 14px;
+  z-index: 10020;
+}
+.mobile-header-lang-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid #482317;
+  border-radius: 999px;
+  background: #f0edee;
+  color: #482317;
+  cursor: pointer;
+  padding: 0;
+  font-size: 20px;
+  line-height: 1;
+}
+.mobile-header-lang.open .mobile-header-lang-btn,
+.mobile-header-lang-btn:hover {
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(236,249,86,.55);
+}
+.mobile-header-lang-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: 178px;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 7px 0 !important;
+  border: 1px solid #482317;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 10px 24px rgba(72,35,23,.14);
+  overflow: hidden;
+}
+.mobile-header-lang.open .mobile-header-lang-dropdown,
+.mobile-header-lang-dropdown.open {
+  display: block;
+}
+.mobile-header-lang-option {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+  width: 100% !important;
+  box-sizing: border-box;
+  margin: 0 !important;
+  padding: 11px 14px !important;
+  border: 0 !important;
+  color: #482317;
+  cursor: pointer;
+  font-family: Favorit, sans-serif;
+  font-size: 16px;
+  line-height: 1.1;
+  text-transform: none;
+}
+.mobile-header-lang-option:hover,
+.mobile-header-lang-option.active {
+  background: #f0edee;
+}
+@media (max-width: 768px) {
+  .mobile-header-lang {
+    display: block;
+  }
+}
 </style>
 </head>
 
@@ -447,6 +518,18 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 						<a class="mobile-nav-logo" href="https://www.theleap.co">
 				<img class='' src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2MjMgNDUwIiB3aWR0aD0iNjIzIiBoZWlnaHQ9IjQ1MCIgZGF0YS11PSJodHRwcyUzQSUyRiUyRnd3dy50aGVsZWFwLmNvJTJGd3AtY29udGVudCUyRnRoZW1lcyUyRnRoZWxlYXAtMjAyMiUyRmJ1aWxkJTJGaW1hZ2VzJTJGdGhlLWxlYXAtbG9nby5zdmclM0Z2JTNEMi4xLjAtJTIzODI4NiIgZGF0YS13PSI2MjMiIGRhdGEtaD0iNDUwIiBkYXRhLWJpcD0iIj48L3N2Zz4=' data-spai='1' alt='The Leap mobile logo' />
 			</a>
+
+				<div class="mobile-header-lang" id="mobile-header-lang">
+					<button class="mobile-header-lang-btn" type="button" aria-label="Select language" aria-expanded="false" aria-haspopup="listbox" id="mobile-header-lang-btn"><span class="mobile-lang-flag">🇬🇧</span></button>
+					<ul class="mobile-header-lang-dropdown" id="mobile-header-lang-dropdown" role="listbox">
+						<li class="mobile-header-lang-option active" data-lang="en" role="option"><span class="mobile-lang-flag">🇬🇧</span> English</li>
+						<li class="mobile-header-lang-option" data-lang="es" role="option"><span class="mobile-lang-flag">🇪🇸</span> Español</li>
+						<li class="mobile-header-lang-option" data-lang="fr" role="option"><span class="mobile-lang-flag">🇫🇷</span> Français</li>
+						<li class="mobile-header-lang-option" data-lang="pt" role="option"><span class="mobile-lang-flag">🇧🇷</span> Português</li>
+						<li class="mobile-header-lang-option" data-lang="de" role="option"><span class="mobile-lang-flag">🇩🇪</span> Deutsch</li>
+						<li class="mobile-header-lang-option" data-lang="it" role="option"><span class="mobile-lang-flag">🇮🇹</span> Italiano</li>
+					</ul>
+				</div>
 
 							<button type="button" class="mobile-nav-trigger off-canvas-open" aria-expanded="false" aria-label="Open Menu"><span class="visually-hidden">Open Menu</span></button>
 					</div>
@@ -1433,6 +1516,51 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 
   document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') closeMobileDropdown();
+  });
+}());
+
+(function() {
+  var btn = document.getElementById('mobile-header-lang-btn');
+  var dropdown = document.getElementById('mobile-header-lang-dropdown');
+  var item = document.getElementById('mobile-header-lang');
+  if (!btn || !dropdown || !item) return;
+
+  var flags = { en: '🇬🇧', es: '🇪🇸', fr: '🇫🇷', pt: '🇧🇷', de: '🇩🇪', it: '🇮🇹' };
+
+  function closeHeaderLang() {
+    dropdown.classList.remove('open');
+    item.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+  }
+
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var isOpen = dropdown.classList.contains('open');
+    if (isOpen) closeHeaderLang();
+    else {
+      dropdown.classList.add('open');
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  dropdown.addEventListener('click', function(e) {
+    var option = e.target.closest('.mobile-header-lang-option');
+    if (!option) return;
+    var lang = option.getAttribute('data-lang');
+    var flagSpan = btn.querySelector('.mobile-lang-flag');
+    if (flagSpan && flags[lang]) flagSpan.textContent = flags[lang];
+    dropdown.querySelectorAll('.mobile-header-lang-option').forEach(function(o) { o.classList.remove('active'); });
+    option.classList.add('active');
+    closeHeaderLang();
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!btn.contains(e.target) && !dropdown.contains(e.target)) closeHeaderLang();
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeHeaderLang();
   });
 }());
 </script>
