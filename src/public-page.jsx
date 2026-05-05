@@ -3,11 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { I, Avatar, ImgPH } from './ui.jsx';
 
 const PALETTES = {
-  violet:   { primary: "#9B7BC9", accent: "#AED5CD", bg: "#FAF6EE", text: "#2E2E33", muted: "#6B6B73", card: "#fff" },
-  coral:    { primary: "#E89A7A", accent: "#9B7BC9", bg: "#FAF6EE", text: "#2E2E33", muted: "#6B6B73", card: "#fff" },
-  mint:     { primary: "#6FB8A8", accent: "#2E2E33", bg: "#F0F5F1", text: "#2E2E33", muted: "#5C6664", card: "#fff" },
-  midnight: { primary: "#CDB5E7", accent: "#AED5CD", bg: "#2E2E33", text: "#FAF6EE", muted: "#A8A8B0", card: "#3D3D44" },
-  sand:     { primary: "#A88A5C", accent: "#2E2E33", bg: "#FAF6EE", text: "#2E2E33", muted: "#6B6B73", card: "#fff" },
+  violet:   { primary: "var(--aw-brown)", accent: "var(--aw-mint)", bg: "#FAF6EE", text: "var(--aw-brown)", muted: "#6B6B73", card: "#fff" },
+  coral:    { primary: "#E89A7A", accent: "var(--aw-brown)", bg: "#FAF6EE", text: "var(--aw-brown)", muted: "#6B6B73", card: "#fff" },
+  mint:     { primary: "var(--aw-green-strong)", accent: "var(--aw-brown)", bg: "#F0F5F1", text: "var(--aw-brown)", muted: "#5C6664", card: "#fff" },
+  midnight: { primary: "var(--aw-lavender-strong)", accent: "var(--aw-mint)", bg: "var(--aw-brown)", text: "#FAF6EE", muted: "#A8A8B0", card: "#3D3D44" },
+  sand:     { primary: "#A88A5C", accent: "var(--aw-brown)", bg: "#FAF6EE", text: "var(--aw-brown)", muted: "#6B6B73", card: "#fff" },
 };
 
 const openLink = (url) => url && url !== '#' && window.open(url, '_blank', 'noopener,noreferrer');
@@ -32,7 +32,7 @@ const PublicPage = ({ data, device = "phone" }) => {
       {fromDashboard && (
         <div style={{
           position: "sticky", top: 0, zIndex: 50,
-          background: "#2E2E33", color: "#fff",
+          background: "var(--aw-brown)", color: "#fff",
           display: "flex", alignItems: "center", justifyContent: "space-between",
           padding: "10px 16px", gap: 10,
         }}>
@@ -381,7 +381,7 @@ const BlogSection = ({ data, palette, radius, isDesktop }) => {
             <div key={b.id} style={{
               background: palette.card, borderRadius: radius, overflow: "hidden",
               display: "flex", border: `1.5px solid ${palette.muted}14`,
-              boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+              boxShadow: "0 1px 4px rgba(72,35,23,0.08)",
             }}>
               <ImgPH ratio="1/1" radius={0} label={b.img} style={{ width: 80, height: 80, flexShrink: 0 }}/>
               <div style={{ padding: "10px 12px", flex: 1, minWidth: 0 }}>

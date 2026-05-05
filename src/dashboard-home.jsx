@@ -26,7 +26,7 @@ const TabBar = ({ active, onChange }) => {
         borderRadius: 22,
         padding: "8px 6px",
         display: "flex", alignItems: "center", justifyContent: "space-between",
-        boxShadow: "0 6px 20px rgba(26,21,48,0.06)",
+        boxShadow: "0 6px 20px rgba(72,35,23,0.08)",
       }}>
         {tabs.map((t) => {
           const isActive = active === t.id;
@@ -36,7 +36,7 @@ const TabBar = ({ active, onChange }) => {
                 width: 50, height: 50, borderRadius: 16,
                 background: "var(--aw-violet)",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                color: "#fff", boxShadow: "0 6px 14px rgba(155,123,201,0.30)",
+                color: "#fff", boxShadow: "0 6px 14px rgba(72,35,23,0.22)",
                 marginTop: -16,
               }}>
                 <t.icon size={24} />
@@ -67,7 +67,7 @@ const TopBar = ({ title, sub, onBack, right }) => (
     {onBack && (
       <button onClick={onBack} style={{
         width: 36, height: 36, borderRadius: 12,
-        background: "#F4EFE6", display: "flex", alignItems: "center", justifyContent: "center",
+        background: "var(--aw-cream)", display: "flex", alignItems: "center", justifyContent: "center",
         color: "var(--aw-ink)",
       }}><I.back size={18} /></button>
     )}
@@ -105,7 +105,7 @@ const HomeScreen = ({ data, goTo, openPreview }) => {
       }}>
         <img src={`${import.meta.env.BASE_URL}aminoweb-logo.svg`} alt="aminoweb" style={{ height: 22, width: "auto", display: "block" }}/>
         <div style={{ display: "flex", gap: 8 }}>
-          <button style={{ width: 36, height: 36, borderRadius: 12, background: "#F4EFE6", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <button style={{ width: 36, height: 36, borderRadius: 12, background: "var(--aw-cream)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <I.bell size={18} color="var(--aw-ink-2)"/>
           </button>
         </div>
@@ -124,9 +124,9 @@ const HomeScreen = ({ data, goTo, openPreview }) => {
       {/* Public URL card */}
       <div style={{ padding: "14px 18px 0" }}>
         <div style={{
-          background: "linear-gradient(135deg, #9B7BC9 0%, #B89FD9 100%)",
+          background: "linear-gradient(135deg, var(--aw-brown) 0%, var(--aw-lavender) 100%)",
           borderRadius: 20, padding: 16, color: "#fff",
-          boxShadow: "0 10px 24px rgba(155,123,201,0.20)",
+          boxShadow: "0 10px 24px rgba(72,35,23,0.16)",
           position: "relative", overflow: "hidden",
         }}>
           <div style={{ position: "absolute", right: -30, top: -30, width: 120, height: 120, borderRadius: "50%", background: "rgba(255,255,255,0.10)" }}/>
@@ -209,7 +209,7 @@ const QuickAction = ({ icon: Ic, label, onClick, tone }) => {
   const tones = {
     violet: { bg: "#fff", icon: "var(--aw-violet)", chip: "var(--aw-violet-50)" },
     coral:  { bg: "#fff", icon: "var(--aw-coral)",  chip: "var(--aw-coral-50)"  },
-    ink:    { bg: "#fff", icon: "var(--aw-ink)",    chip: "#F1ECF9" },
+    ink:    { bg: "#fff", icon: "var(--aw-ink)",    chip: "var(--aw-violet-50)" },
   }[tone];
   return (
     <button onClick={onClick} style={{
