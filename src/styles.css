@@ -1,0 +1,117 @@
+/* AminoWeb design tokens + base styles
+   Palette derived from the brand logo: charcoal wordmark + pastel circles
+   (sky-blue #B7D9EC, mint #AED5CD, lavender #CDB5E7) on warm cream.
+   Type: Plus Jakarta Sans for UI, Instrument Serif for editorial accents. */
+:root {
+  /* Primary = lavender from logo, deepened for usable contrast */
+  --aw-violet: #9B7BC9;        /* lavender primary */
+  --aw-violet-600: #7E5CB0;    /* hover / pressed */
+  --aw-violet-50: #F2ECFA;     /* lavender wash */
+  --aw-violet-pastel: #CDB5E7; /* logo lavender pastel */
+
+  /* Accent = mint from logo */
+  --aw-coral: #6FB8A8;          /* mint primary (kept var name for compat) */
+  --aw-coral-50: #E8F4F0;
+  --aw-mint-pastel: #AED5CD;    /* logo mint pastel */
+
+  /* Sky from logo (used as info / chart accent) */
+  --aw-sky: #6FA8C7;
+  --aw-sky-50: #ECF4FA;
+  --aw-sky-pastel: #B7D9EC;
+
+  /* Warm neutrals */
+  --aw-cream: #FAF6EE;
+  --aw-cream-2: #FFFBF5;
+
+  /* Text — charcoal from the logo wordmark, not violet-tinted ink */
+  --aw-ink: #2E2E33;            /* near logo #4D4D4D, deeper for body */
+  --aw-ink-2: #4D4D4D;          /* matches logo wordmark */
+  --aw-ink-3: #8B8B92;          /* muted */
+
+  --aw-line: #E8E2D4;           /* warm cream line */
+  --aw-line-2: #F0EBDF;
+
+  --aw-success: #6FB8A8;        /* mint */
+  --aw-yellow: #E8C56C;         /* softer than #FBBF24 */
+
+  /* Type system — Inter only, jerarquía por peso y tamaño */
+  --font-sans:    'Inter', -apple-system, system-ui, sans-serif;
+  --font-display: 'Inter', -apple-system, system-ui, sans-serif;
+  --font-serif:   'Inter', -apple-system, system-ui, sans-serif;
+  --font-mono:    ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Inter looks tighter at headline sizes with these features on */
+body { font-family: var(--font-sans); font-feature-settings: 'cv11', 'ss01', 'ss03'; }
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  color: var(--aw-ink);
+  background: #F4EFE6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* Hide scrollbars on phone screens */
+.aw-scroll::-webkit-scrollbar { display: none; }
+.aw-scroll { scrollbar-width: none; }
+
+/* Brand wordmark (no logo asset needed) */
+.aw-wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--aw-ink);
+}
+.aw-wordmark .dot { color: var(--aw-violet); }
+
+/* Striped placeholder — soft pastel mix from logo palette */
+.aw-placeholder {
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(155,123,201,0.10) 0,
+      rgba(155,123,201,0.10) 6px,
+      rgba(174,213,205,0.10) 6px,
+      rgba(174,213,205,0.10) 12px
+    ),
+    var(--aw-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 10px;
+  color: var(--aw-ink-2);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Subtle scrolling shadow for canvas */
+.aw-canvas-bg {
+  background:
+    radial-gradient(ellipse at top, #FFFBF5 0%, #F4EFE6 60%);
+  min-height: 100vh;
+}
+
+/* === Typography utility classes — Inter, jerarquía minimal ===
+   Solo dos voces: display (700, tight) y eyebrow (caps, espaciado). */
+.aw-display  { font-weight: 700; letter-spacing: -0.03em; }
+.aw-eyebrow  { font-weight: 600; font-size: 11px; letter-spacing: 0.12em;
+               text-transform: uppercase; color: var(--aw-ink-3); }
