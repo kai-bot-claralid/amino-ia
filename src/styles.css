@@ -2,55 +2,45 @@
    Palette derived from the brand logo: charcoal wordmark + pastel circles
    (sky-blue #B7D9EC, mint #AED5CD, lavender #CDB5E7) on warm cream.
    Type: Plus Jakarta Sans for UI, Instrument Serif for editorial accents. */
- :root {
-  /* Amino IA dashboard tokens synced to the restored landing */
-  --aw-brown: #482317;
-  --aw-brown-2: #4D2114;
-  --aw-charcoal: #4D4D4D;
-  --aw-cream: #F0EDEE;
-  --aw-cream-2: #FBF8F3;
-  --aw-white: #FFFFFF;
+:root {
+  /* Primary = lavender from logo, deepened for usable contrast */
+  --aw-violet: #9B7BC9;        /* lavender primary */
+  --aw-violet-600: #7E5CB0;    /* hover / pressed */
+  --aw-violet-50: #F2ECFA;     /* lavender wash */
+  --aw-violet-pastel: #CDB5E7; /* logo lavender pastel */
 
-  --aw-blue: #B7D9EC;
-  --aw-blue-strong: #29A7FF;
-  --aw-green: #D4EF96;
-  --aw-green-strong: #52B448;
-  --aw-lavender: #E3C6E4;
-  --aw-lavender-strong: #CDB5E7;
-  --aw-mint: #AED5CD;
-  --aw-orange: #FB4827;
-  --aw-yellow: #ECF956;
+  /* Accent = mint from logo */
+  --aw-coral: #6FB8A8;          /* mint primary (kept var name for compat) */
+  --aw-coral-50: #E8F4F0;
+  --aw-mint-pastel: #AED5CD;    /* logo mint pastel */
 
-  /* Compatibility aliases used across the React dashboard */
-  --aw-violet: var(--aw-brown);
-  --aw-violet-600: var(--aw-brown-2);
-  --aw-violet-50: #F3E8F3;
-  --aw-violet-pastel: var(--aw-lavender);
-  --aw-coral: var(--aw-orange);
-  --aw-coral-50: #FFE8DF;
-  --aw-mint-pastel: var(--aw-mint);
-  --aw-sky: var(--aw-blue-strong);
-  --aw-sky-50: #EAF6FF;
-  --aw-sky-pastel: var(--aw-blue);
+  /* Sky from logo (used as info / chart accent) */
+  --aw-sky: #6FA8C7;
+  --aw-sky-50: #ECF4FA;
+  --aw-sky-pastel: #B7D9EC;
 
-  --aw-ink: var(--aw-brown);
-  --aw-ink-2: var(--aw-charcoal);
-  --aw-ink-3: #8C7D75;
-  --aw-line: rgba(72, 35, 23, 0.18);
-  --aw-line-2: rgba(72, 35, 23, 0.10);
-  --aw-success: var(--aw-green-strong);
+  /* Warm neutrals */
+  --aw-cream: #FAF6EE;
+  --aw-cream-2: #FFFBF5;
 
-  --aw-shadow: 0 16px 0 rgba(72, 35, 23, 0.08), 0 24px 50px rgba(72, 35, 23, 0.12);
-  --aw-radius-sm: 12px;
-  --aw-radius-md: 18px;
-  --aw-radius-lg: 28px;
+  /* Text — charcoal from the logo wordmark, not violet-tinted ink */
+  --aw-ink: #2E2E33;            /* near logo #4D4D4D, deeper for body */
+  --aw-ink-2: #4D4D4D;          /* matches logo wordmark */
+  --aw-ink-3: #8B8B92;          /* muted */
 
-  /* Landing uses Favorit; Inter remains fallback for the Vite app */
-  --font-sans: Favorit, 'Inter', -apple-system, system-ui, sans-serif;
-  --font-display: Favorit, 'Inter', -apple-system, system-ui, sans-serif;
-  --font-serif: Favorit, 'Inter', -apple-system, system-ui, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, monospace;
+  --aw-line: #E8E2D4;           /* warm cream line */
+  --aw-line-2: #F0EBDF;
+
+  --aw-success: #6FB8A8;        /* mint */
+  --aw-yellow: #E8C56C;         /* softer than #FBBF24 */
+
+  /* Type system — Inter only, jerarquía por peso y tamaño */
+  --font-sans:    'Inter', -apple-system, system-ui, sans-serif;
+  --font-display: 'Inter', -apple-system, system-ui, sans-serif;
+  --font-serif:   'Inter', -apple-system, system-ui, sans-serif;
+  --font-mono:    ui-monospace, SFMono-Regular, monospace;
 }
+
 /* Inter looks tighter at headline sizes with these features on */
 body { font-family: var(--font-sans); font-feature-settings: 'cv11', 'ss01', 'ss03'; }
 
@@ -61,7 +51,7 @@ html, body {
   padding: 0;
   font-family: var(--font-sans);
   color: var(--aw-ink);
-  background: var(--aw-cream);
+  background: #F4EFE6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -97,10 +87,10 @@ button {
   background:
     repeating-linear-gradient(
       135deg,
-      rgba(227,198,228,0.45) 0,
-      rgba(227,198,228,0.45) 6px,
-      rgba(212,239,150,0.35) 6px,
-      rgba(212,239,150,0.35) 12px
+      rgba(155,123,201,0.10) 0,
+      rgba(155,123,201,0.10) 6px,
+      rgba(174,213,205,0.10) 6px,
+      rgba(174,213,205,0.10) 12px
     ),
     var(--aw-cream);
   display: flex;
@@ -116,7 +106,7 @@ button {
 /* Subtle scrolling shadow for canvas */
 .aw-canvas-bg {
   background:
-    radial-gradient(circle at 20% 0%, rgba(227,198,228,.8) 0%, transparent 28%), radial-gradient(circle at 85% 12%, rgba(183,217,236,.85) 0%, transparent 30%), linear-gradient(180deg, #FBF8F3 0%, var(--aw-cream) 100%);
+    radial-gradient(ellipse at top, #FFFBF5 0%, #F4EFE6 60%);
   min-height: 100vh;
 }
 

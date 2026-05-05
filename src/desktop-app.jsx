@@ -37,13 +37,13 @@ const getLinkIcon = (key) => {
 
 // ─── Nav items — dots from brand mark palette ─────────────────────────────────
 const DESKTOP_NAV = [
-  { id: "home",     label: "Inicio",    dot: "var(--aw-mint)",  icon: I.home    },
-  { id: "profile",  label: "Perfil",    dot: "var(--aw-lavender-strong)",  icon: I.user    },
-  { id: "links",    label: "Enlaces",   dot: "var(--aw-blue)",  icon: I.link    },
-  { id: "products", label: "Productos", dot: "var(--aw-mint)",  icon: I.bag     },
-  { id: "events",   label: "Eventos",   dot: "var(--aw-lavender-strong)",  icon: I.cal     },
-  { id: "blog",     label: "Blog",      dot: "var(--aw-blue)",  icon: I.doc     },
-  { id: "design",   label: "Diseño",    dot: "#FFD7C4",  icon: I.brush   },
+  { id: "home",     label: "Inicio",    dot: "#AED5CD",  icon: I.home    },
+  { id: "profile",  label: "Perfil",    dot: "#CDB5E7",  icon: I.user    },
+  { id: "links",    label: "Enlaces",   dot: "#B7D9EC",  icon: I.link    },
+  { id: "products", label: "Productos", dot: "#AED5CD",  icon: I.bag     },
+  { id: "events",   label: "Eventos",   dot: "#CDB5E7",  icon: I.cal     },
+  { id: "blog",     label: "Blog",      dot: "#B7D9EC",  icon: I.doc     },
+  { id: "design",   label: "Diseño",    dot: "#F5C5A3",  icon: I.brush   },
 ];
 
 // ─── Device icons (inline, no external dep) ──────────────────────────────────
@@ -64,7 +64,7 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle }) => (
     width: collapsed ? 56 : 220,
     height: "100%",
     background: "#fff",
-    borderRight: "1px solid var(--aw-line)",
+    borderRight: "1px solid #E8E5E0",
     flexShrink: 0,
     display: "flex", flexDirection: "column",
     transition: "width .22s ease",
@@ -99,8 +99,8 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle }) => (
               fontSize: 14,
               fontWeight: isActive ? 600 : 400,
               letterSpacing: "-0.01em",
-              background: isActive ? "var(--aw-violet-50)" : "transparent",
-              color: isActive ? "var(--aw-violet)" : "#8C7D75",
+              background: isActive ? "#EDE8F7" : "transparent",
+              color: isActive ? "var(--aw-violet)" : "#9CA3AF",
               transition: "background .12s, color .12s",
               flexShrink: 0,
             }}>
@@ -125,25 +125,25 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle }) => (
     </nav>
 
     {/* Collapse toggle */}
-    <div style={{ padding: "6px 12px", borderTop: "1px solid var(--aw-line)", flexShrink: 0 }}>
+    <div style={{ padding: "6px 12px", borderTop: "1px solid #E8E5E0", flexShrink: 0 }}>
       <button onClick={onToggle} title={collapsed ? "Expandir menú" : "Colapsar menú"} style={{
         width: "100%", display: "flex", alignItems: "center", gap: 10,
         padding: collapsed ? "8px" : "8px 10px",
         justifyContent: collapsed ? "center" : "flex-start",
         borderRadius: 8,
         fontSize: 13, fontWeight: 400,
-        color: "#8C7D75", background: "transparent",
+        color: "#ADADAD", background: "transparent",
         letterSpacing: "-0.01em",
       }}>
         <span style={{ display: "flex", transform: collapsed ? "rotate(0)" : "rotate(180deg)", transition: "transform .2s ease" }}>
-          <I.chev size={16} color="#8C7D75"/>
+          <I.chev size={16} color="#ADADAD"/>
         </span>
         {!collapsed && <span>Colapsar</span>}
       </button>
     </div>
 
     {/* User footer */}
-    <div style={{ padding: "12px 16px", borderTop: "1px solid var(--aw-line)", flexShrink: 0 }}>
+    <div style={{ padding: "12px 16px", borderTop: "1px solid #E8E5E0", flexShrink: 0 }}>
       <div style={{
         display: "flex", alignItems: "center", gap: 10,
         justifyContent: collapsed ? "center" : "flex-start",
@@ -153,11 +153,11 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle }) => (
           <div style={{ minWidth: 0, flex: 1 }}>
             <div style={{
               fontSize: 13, fontWeight: 500, letterSpacing: "-0.01em",
-              color: "var(--aw-brown)",
+              color: "#1A1A1A",
               whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
             }}>Cindy Guzman</div>
             <div style={{
-              fontSize: 11, fontWeight: 400, color: "#8C7D75", marginTop: 1,
+              fontSize: 11, fontWeight: 400, color: "#ADADAD", marginTop: 1,
             }}>Amino Beta</div>
           </div>
         )}
@@ -181,7 +181,7 @@ const TopBar = ({ active, device, onDeviceChange, handle }) => {
   return (
     <div style={{
       height: 56, padding: "0 20px",
-      background: "#fff", borderBottom: "1px solid var(--aw-line)",
+      background: "#fff", borderBottom: "1px solid #E8E5E0",
       display: "flex", alignItems: "center", gap: 0,
       flexShrink: 0,
     }}>
@@ -238,9 +238,9 @@ const HomePanel = ({ data }) => {
     setCopied(true); setTimeout(() => setCopied(false), 2000);
   };
   const stats = [
-    { k: "Visitas hoy",     v: "84",  d: "+12% vs ayer",  tone: "var(--aw-mint)" },
-    { k: "Clics totales",   v: "21",  d: "+4 vs ayer",    tone: "var(--aw-lavender-strong)" },
-    { k: "Módulos activos", v: `${data.modules.filter(m => m.active).length}/${data.modules.length}`, d: "", tone: "var(--aw-blue)" },
+    { k: "Visitas hoy",     v: "84",  d: "+12% vs ayer",  tone: "#AED5CD" },
+    { k: "Clics totales",   v: "21",  d: "+4 vs ayer",    tone: "#CDB5E7" },
+    { k: "Módulos activos", v: `${data.modules.filter(m => m.active).length}/${data.modules.length}`, d: "", tone: "#B7D9EC" },
   ];
   return (
     <div className="aw-scroll" style={{ flex: 1, overflowY: "auto", padding: 18 }}>
@@ -268,7 +268,7 @@ const HomePanel = ({ data }) => {
         Tu página
       </p>
       <div style={{
-        background: "linear-gradient(135deg, var(--aw-brown) 0%, #7A5CA8 100%)",
+        background: "linear-gradient(135deg, #9B7BC9 0%, #7A5CA8 100%)",
         borderRadius: 12, padding: "16px", color: "#fff",
       }}>
         <div style={{ fontSize: 12, opacity: 0.8, marginBottom: 4 }}>Enlace público</div>
@@ -289,11 +289,11 @@ const HomePanel = ({ data }) => {
 
 // ─── Panel: Diseño ────────────────────────────────────────────────────────────
 const PALETTES = [
-  { id: "violet",   name: "Lavanda",    colors: ["var(--aw-brown)", "var(--aw-mint)", "#FAF6EE"] },
-  { id: "coral",    name: "Coral",      colors: ["#E89A7A", "var(--aw-brown)", "#FAF6EE"] },
-  { id: "mint",     name: "Menta",      colors: ["var(--aw-green-strong)", "var(--aw-brown)", "#F0F5F1"] },
-  { id: "midnight", name: "Medianoche", colors: ["var(--aw-brown)", "var(--aw-lavender-strong)", "var(--aw-mint)"] },
-  { id: "sand",     name: "Arena",      colors: ["#A88A5C", "var(--aw-brown)", "#FAF6EE"] },
+  { id: "violet",   name: "Lavanda",    colors: ["#9B7BC9", "#AED5CD", "#FAF6EE"] },
+  { id: "coral",    name: "Coral",      colors: ["#E89A7A", "#9B7BC9", "#FAF6EE"] },
+  { id: "mint",     name: "Menta",      colors: ["#6FB8A8", "#2E2E33", "#F0F5F1"] },
+  { id: "midnight", name: "Medianoche", colors: ["#2E2E33", "#CDB5E7", "#AED5CD"] },
+  { id: "sand",     name: "Arena",      colors: ["#A88A5C", "#2E2E33", "#FAF6EE"] },
 ];
 const LAYOUTS = [
   { id: "stack",  name: "Pila",        desc: "Botones apilados" },
@@ -446,7 +446,7 @@ const LinksPanel = ({ data, setData }) => {
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {data.links.map(l => (
           <div key={l.id} style={{ background: "#fff", border: "1px solid #EDEAE5", borderRadius: 12, padding: "11px 12px", display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ width: 32, height: 32, borderRadius: 8, background: "var(--aw-cream)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--aw-violet)" }}>
+            <div style={{ width: 32, height: 32, borderRadius: 8, background: "#F4EFE6", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--aw-violet)" }}>
               {React.createElement(getLinkIcon(l.icon), { size: 15 })}
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
@@ -640,7 +640,7 @@ const BlogPanel = ({ data, setData }) => {
 const SecondaryPanel = ({ active, data, setData }) => (
   <div style={{
     width: 280, flexShrink: 0,
-    borderRight: "1px solid var(--aw-line)",
+    borderRight: "1px solid #E8E5E0",
     background: "#FDFCFA",
     display: "flex", flexDirection: "column",
     height: "100%", overflow: "hidden",

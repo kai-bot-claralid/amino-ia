@@ -46,7 +46,7 @@ const Chip = ({ children, tone = "violet", style }) => {
   const tones = {
     violet: { bg: "var(--aw-violet-50)", fg: "var(--aw-violet-600)" },
     coral:  { bg: "var(--aw-coral-50)",  fg: "#C2410C" },
-    ink:    { bg: "var(--aw-violet-50)",             fg: "var(--aw-ink-2)" },
+    ink:    { bg: "#F1ECF9",             fg: "var(--aw-ink-2)" },
     success:{ bg: "#DCFCE7",             fg: "#047857" },
     yellow: { bg: "#FEF3C7",             fg: "#92400E" },
   }[tone];

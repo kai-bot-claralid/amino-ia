@@ -11,7 +11,7 @@ const Toast = ({ msg, onDone }) => {
   return (
     <div style={{
       position: "fixed", bottom: 96, left: "50%", transform: "translateX(-50%)",
-      background: "var(--aw-brown)", color: "#fff", borderRadius: 12,
+      background: "#2E2E33", color: "#fff", borderRadius: 12,
       padding: "10px 18px", fontSize: 13, fontWeight: 600,
       display: "flex", alignItems: "center", gap: 8,
       boxShadow: "0 8px 20px rgba(0,0,0,0.25)", zIndex: 200,
@@ -49,7 +49,7 @@ const DropMenu = ({ open, onDelete, onClose }) => {
 const EmptyState = ({ icon: Ic, title, desc, cta, onCta }) => (
   <div style={{ padding: "48px 18px", textAlign: "center" }}>
     <div style={{
-      width: 64, height: 64, borderRadius: 20, background: "var(--aw-cream)",
+      width: 64, height: 64, borderRadius: 20, background: "#F4EFE6",
       display: "inline-flex", alignItems: "center", justifyContent: "center", marginBottom: 14,
     }}>
       <Ic size={28} color="var(--aw-ink-3)"/>
@@ -182,7 +182,7 @@ const ModulesScreen = ({ data, setData, goTo }) => {
                 flex: 1, display: "flex", alignItems: "center", gap: 12, textAlign: "left",
               }}>
                 <div style={{
-                  width: 40, height: 40, borderRadius: 12, background: "var(--aw-cream)",
+                  width: 40, height: 40, borderRadius: 12, background: "#F4EFE6",
                   display: "flex", alignItems: "center", justifyContent: "center",
                 }}><M.icon size={20} color="var(--aw-ink-2)"/></div>
                 <div style={{ minWidth: 0 }}>
@@ -192,7 +192,7 @@ const ModulesScreen = ({ data, setData, goTo }) => {
               </button>
               <button onClick={() => toggle(m.id)} style={{
                 width: 36, height: 36, borderRadius: 12,
-                background: m.active ? "var(--aw-violet-50)" : "var(--aw-violet-50)",
+                background: m.active ? "var(--aw-violet-50)" : "#F1ECF9",
                 color: m.active ? "var(--aw-violet)" : "var(--aw-ink-3)",
                 display: "flex", alignItems: "center", justifyContent: "center",
               }}>{m.active ? <I.eye size={17}/> : <I.eyeOff size={17}/>}</button>
@@ -228,7 +228,7 @@ const ProfileScreen = ({ data, setData, goBack }) => {
             background: "rgba(255,255,255,0.95)", borderRadius: 10,
             padding: "6px 10px", fontSize: 12, fontWeight: 700, display: "inline-flex", alignItems: "center", gap: 4,
           }}><I.edit size={13}/> Cambiar</button>
-          <div style={{ position: "absolute", left: 14, bottom: -22, width: 64, height: 64, borderRadius: "50%", border: "3px solid var(--aw-cream-2)" }}>
+          <div style={{ position: "absolute", left: 14, bottom: -22, width: 64, height: 64, borderRadius: "50%", border: "3px solid #FFFBF5" }}>
             <Avatar size={58} label="C"/>
           </div>
         </div>
@@ -336,7 +336,7 @@ const LinksScreen = ({ data, setData, goBack, openForm = false }) => {
               display: "flex", alignItems: "center", gap: 10, position: "relative",
             }}>
               <I.drag size={16} color="var(--aw-ink-3)"/>
-              <div style={{ width: 38, height: 38, borderRadius: 12, background: "var(--aw-cream)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div style={{ width: 38, height: 38, borderRadius: 12, background: "#F4EFE6", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 {React.createElement(getLinkIcon(l.icon), { size: 18, color: "var(--aw-violet)" })}
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
@@ -608,11 +608,11 @@ const BlogScreen = ({ data, setData, goBack }) => {
 // ============ DESIGN ============
 const DesignScreen = ({ data, setData }) => {
   const palettes = [
-    { id: "violet",  name: "Lavanda",   colors: ["var(--aw-brown)", "var(--aw-mint)", "#FAF6EE"] },
-    { id: "coral",   name: "Coral",     colors: ["#E89A7A", "var(--aw-brown)", "#FAF6EE"] },
-    { id: "mint",    name: "Menta",     colors: ["var(--aw-green-strong)", "var(--aw-brown)", "#F0F5F1"] },
-    { id: "midnight",name: "Medianoche",colors: ["var(--aw-brown)", "var(--aw-lavender-strong)", "var(--aw-mint)"] },
-    { id: "sand",    name: "Arena",     colors: ["#A88A5C", "var(--aw-brown)", "#FAF6EE"] },
+    { id: "violet",  name: "Lavanda",   colors: ["#9B7BC9", "#AED5CD", "#FAF6EE"] },
+    { id: "coral",   name: "Coral",     colors: ["#E89A7A", "#9B7BC9", "#FAF6EE"] },
+    { id: "mint",    name: "Menta",     colors: ["#6FB8A8", "#2E2E33", "#F0F5F1"] },
+    { id: "midnight",name: "Medianoche",colors: ["#2E2E33", "#CDB5E7", "#AED5CD"] },
+    { id: "sand",    name: "Arena",     colors: ["#A88A5C", "#2E2E33", "#FAF6EE"] },
   ];
   const layouts = [
     { id: "stack",  name: "Pila",   desc: "Botones apilados (Linktree)" },
@@ -676,7 +676,7 @@ const DesignScreen = ({ data, setData }) => {
 };
 
 export const LayoutPreview = ({ kind }) => (
-  <div style={{ width: 56, height: 64, borderRadius: 8, background: "var(--aw-cream)", padding: 6, display: "flex", flexDirection: "column", gap: 3 }}>
+  <div style={{ width: 56, height: 64, borderRadius: 8, background: "#F4EFE6", padding: 6, display: "flex", flexDirection: "column", gap: 3 }}>
     <div style={{ height: 10, borderRadius: 3, background: "var(--aw-violet)" }}/>
     {kind === "stack" && [0,1,2].map(i => <div key={i} style={{ height: 8, borderRadius: 3, background: "#fff" }}/>)}
     {kind === "hybrid" && (
