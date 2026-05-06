@@ -118,5 +118,29 @@ const copyToClipboard = async (text) => {
   }
 };
 
-export {  Icon, I, Chip, Wordmark, Avatar, ImgPH, Toggle  };
+const LINK_ICONS = [
+  { key: 'link',   Ico: I.link   },
+  { key: 'whats',  Ico: I.whats  },
+  { key: 'ig',     Ico: I.ig     },
+  { key: 'globe',  Ico: I.globe  },
+  { key: 'bag',    Ico: I.bag    },
+  { key: 'doc',    Ico: I.doc    },
+  { key: 'user',   Ico: I.user   },
+  { key: 'cal',    Ico: I.cal    },
+  { key: 'bell',   Ico: I.bell   },
+  { key: 'share',  Ico: I.share  },
+  { key: 'pin',    Ico: I.pin    },
+  { key: 'spark',  Ico: I.spark  },
+];
+
+const EMOJI_TO_KEY = { '🔗':'link','💬':'whats','📷':'ig','📄':'doc','⭐':'spark','🌐':'globe','📞':'bell','📧':'share','🎵':'cal','🎬':'eye','🛍':'bag','📍':'pin' };
+
+const getLinkIcon = (key) => {
+  const resolved = EMOJI_TO_KEY[key] || key;
+  return (LINK_ICONS.find(x => x.key === resolved) || LINK_ICONS[0]).Ico;
+};
+
+const isValidUrl = (url) => /^https?:\/\/.+\..+/.test((url || '').trim());
+
+export {  Icon, I, Chip, Wordmark, Avatar, ImgPH, Toggle, LINK_ICONS, getLinkIcon, isValidUrl  };
 export { copyToClipboard };

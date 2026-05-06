@@ -1,5 +1,5 @@
 import React from 'react';
-import { I, Avatar, ImgPH, Chip } from './ui.jsx';
+import { I, Avatar, ImgPH, Chip, LINK_ICONS, getLinkIcon, isValidUrl } from './ui.jsx';
 import { TopBar } from './dashboard-home.jsx';
 
 // ─── Toast ────────────────────────────────────────────────────────────────────
@@ -246,31 +246,11 @@ const ProfileScreen = ({ data, setData, goBack }) => {
 };
 
 // ============ LINKS ============
-const LINK_ICONS = [
-  { key: 'link',   Ico: I.link   },
-  { key: 'whats',  Ico: I.whats  },
-  { key: 'ig',     Ico: I.ig     },
-  { key: 'globe',  Ico: I.globe  },
-  { key: 'bag',    Ico: I.bag    },
-  { key: 'doc',    Ico: I.doc    },
-  { key: 'user',   Ico: I.user   },
-  { key: 'cal',    Ico: I.cal    },
-  { key: 'bell',   Ico: I.bell   },
-  { key: 'share',  Ico: I.share  },
-  { key: 'pin',    Ico: I.pin    },
-  { key: 'spark',  Ico: I.spark  },
-];
-const EMOJI_TO_KEY = { '🔗':'link','💬':'whats','📷':'ig','📄':'doc','⭐':'spark','🌐':'globe','📞':'bell','📧':'share','🎵':'cal','🎬':'eye','🛍':'bag','📍':'pin' };
-const getLinkIcon = (key) => {
-  const resolved = EMOJI_TO_KEY[key] || key;
-  return (LINK_ICONS.find(x => x.key === resolved) || LINK_ICONS[0]).Ico;
-};
-
 const AddLinkForm = ({ onBack, onSave }) => {
   const [title, setTitle] = React.useState('');
   const [url, setUrl] = React.useState('');
   const [icon, setIcon] = React.useState('link');
-  const canSave = title.trim().length > 0 && url.trim().length > 0;
+  const canSave = title.trim().length > 0 && isValidUrl(url);
   return (
     <div className="aw-scroll" style={{ height: "100%", overflowY: "auto", paddingBottom: 110 }}>
       <TopBar title="Nuevo enlace" onBack={onBack} right={
@@ -295,6 +275,11 @@ const AddLinkForm = ({ onBack, onSave }) => {
         <Field value={title} onChange={setTitle} placeholder="Ej: WhatsApp Pedidos"/>
         <FieldLabel>URL</FieldLabel>
         <Field value={url} onChange={setUrl} placeholder="https://..."/>
+        {url.trim() && !isValidUrl(url) && (
+          <div style={{ fontSize: 11, color: "#DC2626", marginTop: -4, marginBottom: 8 }}>
+            Debe empezar con https:// y ser un enlace válido.
+          </div>
+        )}
       </div>
     </div>
   );
@@ -446,12 +431,13 @@ const AddEventForm = ({ onBack, onSave }) => {
   const [date, setDate] = React.useState('');
   const [time, setTime] = React.useState('');
   const [desc, setDesc] = React.useState('');
+  const [link, setLink] = React.useState('');
   const canSave = title.trim().length > 0 && date.length > 0;
   return (
     <div className="aw-scroll" style={{ height: "100%", overflowY: "auto", paddingBottom: 110 }}>
       <TopBar title="Nuevo evento" onBack={onBack} right={
         canSave
-          ? <SaveBtn onSave={() => onSave({ title: title.trim(), date, time, desc: desc.trim() })} />
+          ? <SaveBtn onSave={() => onSave({ title: title.trim(), date, time, desc: desc.trim(), link: link.trim() || '#' })} />
           : <DisabledSaveBtn />
       }/>
       <div style={{ padding: "0 18px" }}>
@@ -463,6 +449,13 @@ const AddEventForm = ({ onBack, onSave }) => {
         <TimeInput value={time} onChange={setTime}/>
         <FieldLabel>Descripción</FieldLabel>
         <Field value={desc} onChange={setDesc} placeholder="Detalles del evento..." multiline/>
+        <FieldLabel>Enlace de registro</FieldLabel>
+        <Field value={link} onChange={setLink} placeholder="https://..."/>
+        {link.trim() && !isValidUrl(link) && (
+          <div style={{ fontSize: 11, color: "#DC2626", marginTop: -4, marginBottom: 8 }}>
+            Si agregas enlace, debe empezar con https://.
+          </div>
+        )}
       </div>
     </div>
   );
@@ -473,8 +466,8 @@ const EventsScreen = ({ data, setData, goBack, openForm = false }) => {
   const [toast, setToast] = React.useState(null);
   const [menuOpen, setMenuOpen] = React.useState(null);
 
-  const handleAdd = ({ title, date, time, desc }) => {
-    const newEvent = { id: 'e' + Date.now(), title, date, time, desc, link: '#' };
+  const handleAdd = ({ title, date, time, desc, link }) => {
+    const newEvent = { id: 'e' + Date.now(), title, date, time, desc, link: isValidUrl(link) ? link : '#' };
     setData({ ...data, events: [...data.events, newEvent] });
     setMode('list');
     setToast('Evento añadido');

@@ -1,27 +1,7 @@
 import React, { useState as useS } from 'react';
-import { I, Avatar, copyToClipboard } from './ui.jsx';
+import { I, Avatar, copyToClipboard, LINK_ICONS, getLinkIcon, isValidUrl } from './ui.jsx';
 import { PublicPage } from './public-page.jsx';
 import { Field, FieldLabel, LayoutPreview } from './dashboard-screens.jsx';
-
-const LINK_ICONS = [
-  { key: 'link',  Ico: I.link  },
-  { key: 'whats', Ico: I.whats },
-  { key: 'ig',    Ico: I.ig    },
-  { key: 'globe', Ico: I.globe },
-  { key: 'bag',   Ico: I.bag   },
-  { key: 'doc',   Ico: I.doc   },
-  { key: 'user',  Ico: I.user  },
-  { key: 'cal',   Ico: I.cal   },
-  { key: 'bell',  Ico: I.bell  },
-  { key: 'share', Ico: I.share },
-  { key: 'pin',   Ico: I.pin   },
-  { key: 'spark', Ico: I.spark },
-];
-const EMOJI_TO_KEY = { '🔗':'link','💬':'whats','📷':'ig','📄':'doc','⭐':'spark','🌐':'globe','📞':'bell','📧':'share','🎵':'cal','🎬':'eye','🛍':'bag','📍':'pin' };
-const getLinkIcon = (key) => {
-  const resolved = EMOJI_TO_KEY[key] || key;
-  return (LINK_ICONS.find(x => x.key === resolved) || LINK_ICONS[0]).Ico;
-};
 
 // AminoWeb — Desktop layout
 // Sidebar (nav) | TopBar + SecondaryPanel + Canvas
@@ -201,8 +181,9 @@ const NAV_LABELS = {
 
 const TopBar = ({ active, device, onDeviceChange, handle }) => {
   const [shared, setShared] = useS(false);
+  const publicUrl = `${window.location.origin}${import.meta.env.BASE_URL}${handle}`;
   const handleShare = async () => {
-    await copyToClipboard(`aminoweb.la/${handle}`);
+    await copyToClipboard(publicUrl);
     setShared(true); setTimeout(() => setShared(false), 2000);
   };
   return (
@@ -249,7 +230,7 @@ const TopBar = ({ active, device, onDeviceChange, handle }) => {
       </button>
 
       {/* Publicar */}
-      <button style={{
+      <button onClick={() => window.open(publicUrl, '_blank', 'noopener,noreferrer')} style={{
         height: 36, padding: "0 18px", borderRadius: 999,
         background: "#ECF956", color: "#3D2C22",
         border: "1.5px solid #4C2116",
@@ -279,7 +260,7 @@ const HomePanel = ({ data }) => {
   return (
     <div className="aw-scroll" style={{ flex: 1, overflowY: "auto", padding: "18px 14px 24px" }}>
       <h1 style={{ fontSize: 22, fontWeight: 650, color: "#3D2C22", margin: "0 0 16px", letterSpacing: "-0.01em" }}>
-        Get started
+        Por dónde empezar
       </h1>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
@@ -450,7 +431,7 @@ const LinksPanel = ({ data, setData }) => {
   const [title, setTitle] = useS('');
   const [url, setUrl] = useS('');
   const [icon, setIcon] = useS('link');
-  const canSave = title.trim() && url.trim();
+  const canSave = title.trim() && isValidUrl(url);
   const handleAdd = () => {
     if (!canSave) return;
     setData({ ...data, links: [...data.links, { id: 'l'+Date.now(), title: title.trim(), url: url.trim(), icon, clicks: 0 }] });
@@ -480,6 +461,11 @@ const LinksPanel = ({ data, setData }) => {
       <Field value={title} onChange={setTitle} placeholder="Ej: WhatsApp"/>
       <FieldLabel>URL</FieldLabel>
       <Field value={url} onChange={setUrl} placeholder="https://..."/>
+      {url.trim() && !isValidUrl(url) && (
+        <div style={{ fontSize: 11, color: "#DC2626", marginTop: -4, marginBottom: 8 }}>
+          Debe empezar con https:// y ser válido.
+        </div>
+      )}
       <button onClick={handleAdd} disabled={!canSave} style={{ marginTop: 16, width: "100%", height: 38, borderRadius: 10, background: canSave ? "var(--aw-violet)" : "#E8E0F4", color: canSave ? "#fff" : "var(--aw-ink-3)", fontWeight: 700, fontSize: 13 }}>Guardar</button>
     </div>
   );
@@ -573,11 +559,12 @@ const EventsPanel = ({ data, setData }) => {
   const [date, setDate] = useS('');
   const [time, setTime] = useS('');
   const [desc, setDesc] = useS('');
+  const [link, setLink] = useS('');
   const canSave = title.trim() && date;
   const handleAdd = () => {
     if (!canSave) return;
-    setData({ ...data, events: [...data.events, { id: 'e'+Date.now(), title: title.trim(), date, time, desc: desc.trim() }] });
-    setTitle(''); setDate(''); setTime(''); setDesc(''); setMode('list');
+    setData({ ...data, events: [...data.events, { id: 'e'+Date.now(), title: title.trim(), date, time, desc: desc.trim(), link: isValidUrl(link) ? link.trim() : '#' }] });
+    setTitle(''); setDate(''); setTime(''); setDesc(''); setLink(''); setMode('list');
   };
   const handleDelete = (id) => setData({ ...data, events: data.events.filter(e => e.id !== id) });
 
@@ -595,6 +582,13 @@ const EventsPanel = ({ data, setData }) => {
       <input type="time" value={time} onChange={e => setTime(e.target.value)} style={{ width: "100%", height: 38, borderRadius: 8, border: "1.5px solid var(--aw-line)", padding: "0 10px", fontSize: 13, fontFamily: "inherit", marginBottom: 8, boxSizing: "border-box" }}/>
       <FieldLabel>Descripción</FieldLabel>
       <Field value={desc} onChange={setDesc} placeholder="Detalles del evento..." multiline/>
+      <FieldLabel>Enlace de registro</FieldLabel>
+      <Field value={link} onChange={setLink} placeholder="https://..."/>
+      {link.trim() && !isValidUrl(link) && (
+        <div style={{ fontSize: 11, color: "#DC2626", marginTop: -4, marginBottom: 8 }}>
+          Si agregas enlace, debe empezar con https://.
+        </div>
+      )}
       <button onClick={handleAdd} disabled={!canSave} style={{ marginTop: 16, width: "100%", height: 38, borderRadius: 10, background: canSave ? "var(--aw-violet)" : "#E8E0F4", color: canSave ? "#fff" : "var(--aw-ink-3)", fontWeight: 700, fontSize: 13 }}>Guardar</button>
     </div>
   );

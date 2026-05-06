@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { I, Avatar, ImgPH } from './ui.jsx';
+import { I, Avatar, ImgPH, getLinkIcon } from './ui.jsx';
 
 const PALETTES = {
   violet:   { primary: "#9B7BC9", accent: "#AED5CD", bg: "#FAF6EE", text: "#2E2E33", muted: "#6B6B73", card: "#fff" },
@@ -211,7 +211,9 @@ const LinksSection = ({ data, palette, radius }) => (
   <div>
     <SectionHeader title="Enlaces" palette={palette}/>
     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-      {data.links.map((l) => (
+      {data.links.map((l) => {
+        const LinkIcon = getLinkIcon(l.icon);
+        return (
         <button key={l.id} onClick={() => openLink(l.url)} style={{
           height: 58, borderRadius: radius,
           background: palette.card, color: palette.text,
@@ -224,11 +226,12 @@ const LinksSection = ({ data, palette, radius }) => (
             width: 36, height: 36, borderRadius: 10, flexShrink: 0,
             background: `${palette.primary}16`,
             display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18,
-          }}>{l.icon}</div>
+          }}><LinkIcon size={18} color={palette.primary}/></div>
           <span style={{ flex: 1, fontWeight: 700, fontSize: 14 }}>{l.title}</span>
           <I.arrow size={15} color={palette.muted}/>
         </button>
-      ))}
+        );
+      })}
     </div>
   </div>
 );
@@ -343,7 +346,6 @@ const EventsSection = ({ data, palette, radius, isDesktop }) => (
 
 // ─── Blog ─────────────────────────────────────────────────────────────────────
 const BlogSection = ({ data, palette, radius, isDesktop }) => {
-  const [expanded, setExpanded] = React.useState(null);
   const [featured, ...rest] = data.blog;
   return (
     <div>
@@ -359,14 +361,14 @@ const BlogSection = ({ data, palette, radius, isDesktop }) => {
             <div style={{ fontSize: 11, color: palette.primary, fontWeight: 700, letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: 6 }}>{featured.date}</div>
             <div style={{ fontWeight: 800, fontSize: isDesktop ? 20 : 16, letterSpacing: "-0.02em", lineHeight: 1.25 }}>{featured.title}</div>
             <div style={{ fontSize: 13, color: palette.muted, marginTop: 6, lineHeight: 1.5 }}>{featured.excerpt}</div>
-            <button onClick={() => setExpanded(expanded === featured.id ? null : featured.id)} style={{
+            <div style={{
               marginTop: 14, height: 34, padding: "0 16px", borderRadius: 8,
               background: `${palette.primary}18`, color: palette.primary,
               fontSize: 12, fontWeight: 700,
               display: "inline-flex", alignItems: "center", gap: 5,
             }}>
-              {expanded === featured.id ? 'Cerrar' : 'Leer más'} <I.arrow size={12} color={palette.primary}/>
-            </button>
+              Artículo destacado <I.arrow size={12} color={palette.primary}/>
+            </div>
           </div>
         </div>
       )}
