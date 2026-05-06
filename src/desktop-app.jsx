@@ -72,14 +72,8 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usu
       borderBottom: "1px solid #e9e9e7",
       flexShrink: 0,
     }}>
-      <div style={{
-        width: 22, height: 22, borderRadius: 4,
-        background: "#9B7BC9",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        flexShrink: 0,
-      }}>
-        <span style={{ color: "#fff", fontSize: 13, fontWeight: 700 }}>A</span>
-      </div>
+      <img src={import.meta.env.BASE_URL + "aminoweb-mark.svg"} alt="Amino IA"
+        style={{ height: 22, display: "block", flexShrink: 0 }}/>
       {!collapsed && (
         <span style={{
           fontSize: 14, fontWeight: 600,
