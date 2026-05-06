@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && cp dist/index.html dist/app.html && cp dist/index.html dist/404.html && touch dist/.nojekyll",
+    "build": "vite build && cp dist/source.html dist/index.html && cp dist/source.html dist/app.html && cp dist/source.html dist/404.html && touch dist/.nojekyll",
     "lint": "eslint .",
     "preview": "vite preview"
   },
