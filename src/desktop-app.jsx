@@ -275,8 +275,8 @@ const HomePanel = ({ data }) => {
     { title: "Revisa tu actividad", desc: `${s.visitsToday ?? "—"} visitas hoy · ${s.clicks ?? "—"} clics registrados.`, btn: "Ver resumen", tone: "green", icon: I.analytics || I.spark },
   ];
   return (
-    <div className="aw-scroll" style={{ flex: 1, overflowY: "auto", padding: "40px 36px 60px" }}>
-      <h1 style={{ fontSize: 28, fontWeight: 650, color: "#3D2C22", margin: "0 0 28px", letterSpacing: "-0.01em" }}>
+    <div className="aw-scroll" style={{ flex: 1, overflowY: "auto", padding: "18px 14px 24px" }}>
+      <h1 style={{ fontSize: 22, fontWeight: 650, color: "#3D2C22", margin: "0 0 16px", letterSpacing: "-0.01em" }}>
         Get started
       </h1>
 
@@ -285,25 +285,25 @@ const HomePanel = ({ data }) => {
           const tone = LEAP_TONES[a.tone];
           return (
             <div key={a.title} style={{
-              display: "flex", alignItems: "center", gap: 18,
+              display: "flex", alignItems: "flex-start", gap: 12,
               background: "#fff", border: "1.5px solid #E8E0D6",
-              borderRadius: 14, padding: "20px 22px",
+              borderRadius: 14, padding: "14px",
               boxShadow: "0 1px 0 rgba(61,44,34,0.02)",
             }}>
               <div style={{
-                width: 46, height: 46, borderRadius: "50%",
+                width: 40, height: 40, borderRadius: "50%",
                 background: tone.bg, color: tone.color,
                 display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
               }}><a.icon size={23} color="currentColor"/></div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontSize: 15, fontWeight: 650, color: "#3D2C22", marginBottom: 5 }}>{a.title}</div>
-                <div style={{ fontSize: 13.5, color: "#7A5C4A", lineHeight: 1.5 }}>{a.desc}</div>
+                <div style={{ fontSize: 14, fontWeight: 650, color: "#3D2C22", marginBottom: 5, lineHeight: 1.25 }}>{a.title}</div>
+                <div style={{ fontSize: 12.5, color: "#7A5C4A", lineHeight: 1.45 }}>{a.desc}</div>
               </div>
               <button style={{
                 display: "inline-flex", alignItems: "center", gap: 5,
-                padding: "8px 18px", borderRadius: 30,
+                padding: "7px 12px", borderRadius: 30,
                 border: "1.5px solid #C9B8AE", background: "#fff",
-                fontSize: 13.5, fontWeight: 500, color: "#3D2C22", whiteSpace: "nowrap",
+                fontSize: 12.5, fontWeight: 500, color: "#3D2C22", whiteSpace: "nowrap",
               }}>{a.btn}</button>
             </div>
           );
@@ -813,7 +813,7 @@ const ProductsDesktopPage = ({ data, setData }) => {
 // ─── Secondary panel container ────────────────────────────────────────────────
 const SecondaryPanel = ({ active, data, setData }) => (
   <div style={{
-    width: active === "home" ? 760 : 320, flexShrink: 0,
+    width: 320, flexShrink: 0,
     borderRight: "1px solid #ECE6DE",
     background: "#F5F3EF",
     display: "flex", flexDirection: "column",
@@ -877,17 +877,13 @@ const DesktopApp = ({ data, setData }) => {
         userName={data.profile.name}
       />
       <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}>
-        {active === "products" ? (
-          <ProductsDesktopPage data={data} setData={setData}/>
-        ) : (
-          <>
-            <TopBar active={active} device={device} onDeviceChange={setDevice} handle={data.user.handle}/>
-            <div style={{ flex: 1, minHeight: 0, display: "flex" }}>
-              <SecondaryPanel active={active} data={data} setData={setData}/>
-              <Canvas data={data} device={device}/>
-            </div>
-          </>
-        )}
+        <>
+          <TopBar active={active} device={device} onDeviceChange={setDevice} handle={data.user.handle}/>
+          <div style={{ flex: 1, minHeight: 0, display: "flex" }}>
+            <SecondaryPanel active={active} data={data} setData={setData}/>
+            <Canvas data={data} device={device}/>
+          </div>
+        </>
       </div>
     </div>
   );

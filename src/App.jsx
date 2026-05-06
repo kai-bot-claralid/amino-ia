@@ -107,10 +107,8 @@ export default function App() {
   }, [data]);
 
   const isDesktop = useMediaQuery('(min-width: 768px)');
-  const forceDesktop = typeof window !== 'undefined' && (
-    new URLSearchParams(window.location.search).get('desktop') === '1' ||
-    window.location.pathname.includes('/dashboard/products')
-  );
+  const forceDesktop = typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).get('desktop') === '1';
 
   return (
     <Router basename={import.meta.env.BASE_URL}>
