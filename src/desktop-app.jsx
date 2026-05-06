@@ -51,102 +51,148 @@ const PhoneIcon = ({ size = 18 }) => (
 );
 
 // ─── Sidebar ─────────────────────────────────────────────────────────────────
-const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usuario" }) => (
+const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usuario" }) => {
+  const [hovered, setHovered] = useS(null);
+  return (
   <aside style={{
-    width: collapsed ? 56 : 220,
+    width: collapsed ? 52 : 220,
     height: "100%",
-    background: "#fff",
-    borderRight: "1px solid var(--aw-line)",
+    background: "#f7f6f3",
+    borderRight: "1px solid #e9e9e7",
     flexShrink: 0,
     display: "flex", flexDirection: "column",
-    transition: "width .22s ease",
+    transition: "width .2s ease",
     overflow: "hidden",
   }}>
-    {/* Logo */}
+    {/* Workspace header */}
     <div style={{
-      height: 52,
-      padding: collapsed ? "0" : "0 16px",
-      display: "flex", alignItems: "center",
-      justifyContent: collapsed ? "center" : "flex-start",
+      height: 50,
+      padding: "0 14px",
+      display: "flex", alignItems: "center", gap: 8,
+      borderBottom: "1px solid #e9e9e7",
       flexShrink: 0,
     }}>
-      {collapsed
-        ? <img src={`${import.meta.env.BASE_URL}aminoweb-mark.svg`} alt="aminoweb" style={{ height: 24, display: "block" }}/>
-        : <img src={`${import.meta.env.BASE_URL}aminoweb-logo.svg`} alt="aminoweb" style={{ height: 20, display: "block" }}/>
-      }
+      <div style={{
+        width: 22, height: 22, borderRadius: 4,
+        background: "#9B7BC9",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        flexShrink: 0,
+      }}>
+        <span style={{ color: "#fff", fontSize: 13, fontWeight: 700 }}>A</span>
+      </div>
+      {!collapsed && (
+        <span style={{
+          fontSize: 14, fontWeight: 600,
+          color: "#37352f",
+          letterSpacing: "-0.02em",
+          flex: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
+        }}>Amino IA</span>
+      )}
+      {!collapsed && (
+        <button onClick={onToggle} style={{
+          width: 24, height: 24, borderRadius: 4,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          background: "transparent", color: "#9b9b9b", flexShrink: 0,
+        }}>
+          <I.chev size={13} color="currentColor"/>
+        </button>
+      )}
     </div>
 
+    {/* Search */}
+    {!collapsed && (
+      <div style={{ padding: "8px 10px", flexShrink: 0 }}>
+        <div style={{
+          display: "flex", alignItems: "center", gap: 6,
+          padding: "5px 8px",
+          background: "#fff",
+          border: "1px solid #e9e9e7",
+          borderRadius: 6,
+          color: "#9b9b9b",
+          fontSize: 13,
+        }}>
+          <span style={{ fontSize: 14, opacity: 0.5 }}>🔍</span>
+          <span style={{ flex: 1 }}>Buscar...</span>
+        </div>
+      </div>
+    )}
+
     {/* Nav */}
-    <nav style={{ flex: 1, padding: "4px 6px", display: "flex", flexDirection: "column", gap: 1, overflowY: "auto" }}>
+    <nav style={{ flex: 1, padding: "4px 8px", display: "flex", flexDirection: "column", gap: 0, overflowY: "auto" }}>
+      {!collapsed && (
+        <div style={{ fontSize: 11, fontWeight: 600, color: "#9b9b9b", letterSpacing: "0.04em", padding: "10px 6px 4px", textTransform: "uppercase" }}>
+          Página
+        </div>
+      )}
       {DESKTOP_NAV.map(item => {
         const isActive = active === item.id;
+        const isHovered = hovered === item.id;
         return (
           <button key={item.id} onClick={() => onSelect(item.id)}
+            onMouseEnter={() => setHovered(item.id)}
+            onMouseLeave={() => setHovered(null)}
             title={collapsed ? item.label : undefined}
             style={{
-              display: "flex", alignItems: "center", gap: 8,
-              padding: collapsed ? "7px 0" : "6px 10px",
+              display: "flex", alignItems: "center", gap: 6,
+              padding: collapsed ? "0" : "0 6px",
               justifyContent: collapsed ? "center" : "flex-start",
-              borderRadius: 6,
+              height: 32, borderRadius: 6,
+              background: isActive ? "#e9e9e7" : isHovered ? "#efefed" : "transparent",
+              color: isActive ? "#37352f" : isHovered ? "#37352f" : "#787774",
               fontSize: 14,
-              fontWeight: isActive ? 500 : 400,
-              letterSpacing: "-0.01em",
-              background: isActive ? "rgba(0,0,0,0.06)" : "transparent",
-              color: isActive ? "var(--aw-ink)" : "#787774",
+              fontWeight: isActive ? 600 : 400,
               transition: "background .1s, color .1s",
               flexShrink: 0,
+              marginBottom: 1,
+              position: "relative",
             }}>
-            <item.icon size={16} color={isActive ? "var(--aw-ink)" : "#9B9A97"}/>
-            {!collapsed && <span style={{ flex: 1 }}>{item.label}</span>}
+            <item.icon size={14} color={isActive ? "#37352f" : isHovered ? "#37352f" : "#787774"}/>
+            {!collapsed && <span style={{ flex: 1, textAlign: "left" }}>{item.label}</span>}
+            {collapsed && isActive && (
+              <div style={{ position: "absolute", top: 6, right: 6, width: 4, height: 4, borderRadius: "50%", background: "#9B7BC9" }}/>
+            )}
           </button>
         );
       })}
     </nav>
 
-    {/* Collapse toggle */}
-    <div style={{ padding: "6px 12px", borderTop: "1px solid var(--aw-line)", flexShrink: 0 }}>
-      <button onClick={onToggle} title={collapsed ? "Expandir menú" : "Colapsar menú"} style={{
-        width: "100%", display: "flex", alignItems: "center", gap: 0,
-        padding: collapsed ? "8px" : "8px 10px",
-        justifyContent: collapsed ? "center" : "flex-start",
-        borderRadius: 8,
-        fontSize: 13, fontWeight: 400,
-        color: "var(--aw-ink-3)", background: "transparent",
-        letterSpacing: "-0.01em",
-      }}>
-        <span style={{ display: "flex", transform: collapsed ? "rotate(0)" : "rotate(180deg)", transition: "transform .2s ease" }}>
-          <I.chev size={16} color="var(--aw-ink-3)"/>
-        </span>
-        {!collapsed && <span>Colapsar</span>}
-      </button>
-    </div>
-
     {/* User footer */}
-    <div style={{ padding: "10px 10px", borderTop: "1px solid var(--aw-line)", flexShrink: 0 }}>
+    <div style={{ padding: "6px 8px", borderTop: "1px solid #e9e9e7", flexShrink: 0 }}>
+      {!collapsed && (
+        <div style={{ fontSize: 11, fontWeight: 600, color: "#9b9b9b", letterSpacing: "0.04em", padding: "4px 6px 6px", textTransform: "uppercase" }}>
+          Mi cuenta
+        </div>
+      )}
       <div style={{
-        display: "flex", alignItems: "center", gap: 8, padding: "6px 6px",
+        display: "flex", alignItems: "center", gap: 8, padding: "4px 6px",
         borderRadius: 6, justifyContent: collapsed ? "center" : "flex-start",
       }}>
         <div style={{
-          width: 26, height: 26, borderRadius: 6, background: "#E8E6E3", flexShrink: 0,
+          width: 24, height: 24, borderRadius: 4, background: "#e9e9e7",
           display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: 12, fontWeight: 600, color: "#6B6B6B",
+          fontSize: 12, fontWeight: 600, color: "#787774", flexShrink: 0,
         }}>
-          {userName.charAt(0).toUpperCase()}
+          {(userName || "U").charAt(0).toUpperCase()}
         </div>
         {!collapsed && (
           <div style={{ minWidth: 0, flex: 1 }}>
-            <div style={{
-              fontSize: 13, fontWeight: 500, letterSpacing: "-0.01em",
-              color: "var(--aw-ink)",
-              whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
-            }}>{userName}</div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: "#37352f", letterSpacing: "-0.01em" }}>{userName}</div>
           </div>
         )}
       </div>
+      {collapsed && (
+        <button onClick={onToggle} title="Expandir" style={{
+          width: "100%", display: "flex", alignItems: "center", justifyContent: "center",
+          padding: "4px", borderRadius: 4, marginTop: 2,
+          background: "transparent", color: "#9b9b9b",
+        }}>
+          <I.chev size={13} color="currentColor" style={{ transform: "rotate(180deg)" }}/>
+        </button>
+      )}
     </div>
   </aside>
-);
+  );
+};
 
 // ─── Top bar ──────────────────────────────────────────────────────────────────
 const NAV_LABELS = {
