@@ -107,6 +107,10 @@ export default function App() {
   }, [data]);
 
   const isDesktop = useMediaQuery('(min-width: 768px)');
+  const forceDesktop = typeof window !== 'undefined' && (
+    new URLSearchParams(window.location.search).get('desktop') === '1' ||
+    window.location.pathname.includes('/dashboard/products')
+  );
 
   return (
     <Router basename={import.meta.env.BASE_URL}>
@@ -117,7 +121,7 @@ export default function App() {
         <Route path="/login" element={<LoginRoute />} />
         
         <Route path="/dashboard/*" element={
-          isDesktop ? (
+          (isDesktop || forceDesktop) ? (
             <DesktopApp data={data} setData={setData}/>
           ) : (
             <Dashboard data={data} setData={setData} />

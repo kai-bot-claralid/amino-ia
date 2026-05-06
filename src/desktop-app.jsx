@@ -855,8 +855,17 @@ const Canvas = ({ data, device }) => (
 );
 
 // ─── Top-level desktop app ────────────────────────────────────────────────────
+const getInitialDesktopTab = () => {
+  if (typeof window === "undefined") return "home";
+  const params = new URLSearchParams(window.location.search);
+  const tab = params.get("tab");
+  if (tab && DESKTOP_NAV.some(item => item.id === tab)) return tab;
+  if (window.location.pathname.includes("/dashboard/products")) return "products";
+  return "home";
+};
+
 const DesktopApp = ({ data, setData }) => {
-  const [active, setActive] = useS("home");
+  const [active, setActive] = useS(getInitialDesktopTab);
   const [collapsed, setCollapsed] = useS(false);
   const [device, setDevice] = useS("desktop");
 
