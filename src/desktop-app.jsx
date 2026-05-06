@@ -73,10 +73,10 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usu
   }}>
     {/* Workspace header */}
     <div style={{
-      height: 68,
+      height: 64,
       padding: "0 20px",
       display: "flex", alignItems: "center", gap: 8,
-      borderBottom: "none",
+      borderBottom: "1px solid #ECE6DE",
       flexShrink: 0,
     }}>
       <img src={import.meta.env.BASE_URL + "aminoweb-mark.svg"} alt="Amino IA"
@@ -135,24 +135,21 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usu
             onMouseLeave={() => setHovered(null)}
             title={collapsed ? item.label : undefined}
             style={{
-              display: "flex", alignItems: "center", gap: 6,
-              padding: collapsed ? "0" : "0 6px",
+              display: "flex", alignItems: "center", gap: 8,
+              padding: collapsed ? "0" : "0 8px 0 10px",
               justifyContent: collapsed ? "center" : "flex-start",
-              height: 38, borderRadius: 10,
+              height: 36, borderRadius: 8,
               background: isActive ? "#FCE8F0" : isHovered ? "#FAF0EA" : "transparent",
               color: isActive ? "#C93178" : isHovered ? "#3D2C22" : "#5C3D2E",
-              fontSize: 14,
+              fontSize: 13.5,
               fontWeight: isActive ? 650 : 500,
               transition: "background .1s, color .1s",
               flexShrink: 0,
               marginBottom: 1,
-              position: "relative",
+              boxShadow: isActive ? "inset 2px 0 0 #C93178" : "none",
             }}>
-            <item.icon size={17} color="currentColor"/>
+            <item.icon size={16} color="currentColor"/>
             {!collapsed && <span style={{ flex: 1, textAlign: "left" }}>{item.label}</span>}
-            {collapsed && isActive && (
-              <div style={{ position: "absolute", top: 6, right: 6, width: 4, height: 4, borderRadius: "50%", background: "#9B7BC9" }}/>
-            )}
           </button>
         );
       })}
@@ -210,22 +207,25 @@ const TopBar = ({ active, device, onDeviceChange, handle }) => {
   };
   return (
     <div style={{
-      height: 64, padding: "0 36px",
-      background: "#F5F3EF", borderBottom: "1px solid #ECE6DE",
+      height: 64, padding: "0 28px",
+      background: "#fff", borderBottom: "1px solid #ECE6DE",
       display: "flex", alignItems: "center", gap: 0,
       flexShrink: 0,
     }}>
-      <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
-        <span style={{ fontSize: 15, fontWeight: 500, color: "#3D2C22" }}>
-          Welcome, {handle} 👋
+      <div style={{ flex: 1, display: "flex", alignItems: "baseline", gap: 10 }}>
+        <span style={{ fontSize: 17, fontWeight: 750, color: "#3D2C22", letterSpacing: "-0.025em" }}>
+          {NAV_LABELS[active]}
+        </span>
+        <span style={{ fontSize: 13, color: "#8A6A5A", fontWeight: 500 }}>
+          aminoweb.la/{handle}
         </span>
       </div>
 
       {/* Device switcher */}
-      <div style={{ display: "flex", gap: 2, padding: 4, background: "var(--aw-cream)", borderRadius: 10, marginRight: 12 }}>
+      <div style={{ display: "flex", gap: 2, padding: 4, background: "#F5F3EF", border: "1px solid #ECE6DE", borderRadius: 999, marginRight: 12 }}>
         {[{ id: "desktop", Ico: MonitorIcon }, { id: "phone", Ico: PhoneIcon }].map(({ id, Ico }) => (
           <button key={id} onClick={() => onDeviceChange(id)} style={{
-            width: 32, height: 32, borderRadius: 7,
+            width: 32, height: 32, borderRadius: 999,
             display: "flex", alignItems: "center", justifyContent: "center",
             background: device === id ? "#fff" : "transparent",
             color: device === id ? "var(--aw-ink)" : "var(--aw-ink-3)",
@@ -239,9 +239,10 @@ const TopBar = ({ active, device, onDeviceChange, handle }) => {
 
       {/* Share */}
       <button onClick={handleShare} title="Copiar enlace" style={{
-        width: 36, height: 36, borderRadius: 9,
+        width: 36, height: 36, borderRadius: 999,
         display: "flex", alignItems: "center", justifyContent: "center",
-        color: shared ? "var(--aw-success)" : "var(--aw-ink-3)", marginRight: 8,
+        color: shared ? "var(--aw-success)" : "#5C3D2E", marginRight: 8,
+        background: "#fff", border: "1px solid #ECE6DE",
         transition: "color .2s",
       }}>
         {shared ? <I.check size={18}/> : <I.share size={18}/>}
@@ -249,9 +250,10 @@ const TopBar = ({ active, device, onDeviceChange, handle }) => {
 
       {/* Publicar */}
       <button style={{
-        height: 36, padding: "0 16px", borderRadius: 10,
-        background: "var(--aw-violet)", color: "#fff",
-        fontSize: 13, fontWeight: 700,
+        height: 36, padding: "0 18px", borderRadius: 999,
+        background: "#ECF956", color: "#3D2C22",
+        border: "1.5px solid #4C2116",
+        fontSize: 13, fontWeight: 750,
         display: "inline-flex", alignItems: "center", gap: 6,
       }}>
         <I.rocket size={14}/> Publicar
@@ -286,9 +288,9 @@ const HomePanel = ({ data }) => {
           return (
             <div key={a.title} style={{
               display: "flex", alignItems: "flex-start", gap: 12,
-              background: "#fff", border: "1.5px solid #E8E0D6",
+              background: "#fff", border: "1px solid #ECE6DE",
               borderRadius: 14, padding: "14px",
-              boxShadow: "0 1px 0 rgba(61,44,34,0.02)",
+              boxShadow: "0 1px 3px rgba(61,44,34,0.05)",
             }}>
               <div style={{
                 width: 40, height: 40, borderRadius: "50%",
@@ -358,7 +360,7 @@ const DesignPanel = ({ data, setData }) => {
       <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 22 }}>
         {PALETTES.map(p => (
           <button key={p.id} onClick={() => setD("palette", p.id)} style={{
-            display: "flex", alignItems: "center", gap: 0, padding: "10px 12px",
+            display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
             borderRadius: 12, background: "var(--aw-surface)",
             border: data.design.palette === p.id ? "1.5px solid var(--aw-violet)" : "1px solid var(--aw-line)",
           }}>
@@ -492,15 +494,15 @@ const LinksPanel = ({ data, setData }) => {
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {data.links.map(l => (
-          <div key={l.id} style={{ background: "var(--aw-surface)", border: "1px solid var(--aw-line)", borderRadius: 12, padding: "11px 12px", display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ width: 32, height: 32, borderRadius: 8, background: "var(--aw-cream)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--aw-violet)" }}>
+          <div key={l.id} style={{ background: "#fff", border: "1px solid #ECE6DE", borderRadius: 14, padding: "12px 14px", display: "flex", alignItems: "center", gap: 10, boxShadow: "0 1px 2px rgba(61,44,34,0.04)" }}>
+            <div style={{ width: 34, height: 34, borderRadius: 10, background: "var(--aw-cream)", border: "1px solid rgba(0,0,0,0.06)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--aw-violet)" }}>
               {React.createElement(getLinkIcon(l.icon), { size: 15 })}
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontWeight: 700, fontSize: 13, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{l.title}</div>
+              <div style={{ fontWeight: 700, fontSize: 13, color: "#3D2C22", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{l.title}</div>
               <div style={{ fontSize: 11, color: "var(--aw-ink-3)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{l.url}</div>
             </div>
-            <button onClick={() => handleDelete(l.id)} style={{ color: "#DC2626", display: "flex", opacity: 0.6 }}><I.trash size={13}/></button>
+            <button onClick={() => handleDelete(l.id)} style={{ color: "#DC2626", display: "flex", opacity: 0.55 }}><I.trash size={13}/></button>
           </div>
         ))}
       </div>
@@ -548,15 +550,15 @@ const ProductsPanel = ({ data, setData }) => {
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {data.products.map(p => (
-          <div key={p.id} style={{ background: "var(--aw-surface)", border: "1px solid var(--aw-line)", borderRadius: 12, padding: "11px 12px", display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ width: 40, height: 40, borderRadius: 8, background: "var(--aw-coral-50)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--aw-coral)" }}>
-              <I.bag size={18}/>
+          <div key={p.id} style={{ background: "#fff", border: "1px solid #ECE6DE", borderRadius: 14, padding: "12px 14px", display: "flex", alignItems: "center", gap: 10, boxShadow: "0 1px 2px rgba(61,44,34,0.04)" }}>
+            <div style={{ width: 38, height: 38, borderRadius: 10, background: "var(--aw-coral-50)", border: "1px solid rgba(0,0,0,0.06)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--aw-coral)" }}>
+              <I.bag size={17}/>
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontWeight: 700, fontSize: 13, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p.title}</div>
+              <div style={{ fontWeight: 700, fontSize: 13, color: "#3D2C22", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{p.title}</div>
               <div style={{ fontSize: 11, color: "var(--aw-violet)", fontWeight: 700 }}>{p.price}</div>
             </div>
-            <button onClick={() => handleDelete(p.id)} style={{ color: "#DC2626", display: "flex", opacity: 0.6 }}><I.trash size={13}/></button>
+            <button onClick={() => handleDelete(p.id)} style={{ color: "#DC2626", display: "flex", opacity: 0.55 }}><I.trash size={13}/></button>
           </div>
         ))}
       </div>
@@ -611,16 +613,16 @@ const EventsPanel = ({ data, setData }) => {
           const day = d.getDate();
           const mon = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"][d.getMonth()];
           return (
-            <div key={e.id} style={{ background: "var(--aw-surface)", border: "1px solid var(--aw-line)", borderRadius: 12, padding: "11px 12px", display: "flex", alignItems: "center", gap: 10 }}>
-              <div style={{ width: 40, height: 44, borderRadius: 8, background: "var(--aw-coral-50)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+            <div key={e.id} style={{ background: "#fff", border: "1px solid #ECE6DE", borderRadius: 14, padding: "12px 14px", display: "flex", alignItems: "center", gap: 10, boxShadow: "0 1px 2px rgba(61,44,34,0.04)" }}>
+              <div style={{ width: 40, height: 44, borderRadius: 10, background: "var(--aw-coral-50)", border: "1px solid rgba(0,0,0,0.06)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <span style={{ fontSize: 9, fontWeight: 700, color: "#9A3412", letterSpacing: "0.06em" }}>{mon}</span>
                 <span style={{ fontSize: 18, fontWeight: 800, color: "#9A3412", lineHeight: 1 }}>{day}</span>
               </div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontWeight: 700, fontSize: 13, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{e.title}</div>
+                <div style={{ fontWeight: 700, fontSize: 13, color: "#3D2C22", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{e.title}</div>
                 <div style={{ fontSize: 11, color: "var(--aw-ink-3)" }}>{e.time}</div>
               </div>
-              <button onClick={() => handleDelete(e.id)} style={{ color: "#DC2626", display: "flex", opacity: 0.6 }}><I.trash size={13}/></button>
+              <button onClick={() => handleDelete(e.id)} style={{ color: "#DC2626", display: "flex", opacity: 0.55 }}><I.trash size={13}/></button>
             </div>
           );
         })}
@@ -667,146 +669,19 @@ const BlogPanel = ({ data, setData }) => {
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {data.blog.map(b => (
-          <div key={b.id} style={{ background: "var(--aw-surface)", border: "1px solid var(--aw-line)", borderRadius: 12, padding: "11px 12px", display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ width: 40, height: 40, borderRadius: 8, background: "var(--aw-violet-50)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--aw-violet)" }}>
-              <I.doc size={18}/>
+          <div key={b.id} style={{ background: "#fff", border: "1px solid #ECE6DE", borderRadius: 14, padding: "12px 14px", display: "flex", alignItems: "center", gap: 10, boxShadow: "0 1px 2px rgba(61,44,34,0.04)" }}>
+            <div style={{ width: 38, height: 38, borderRadius: 10, background: "var(--aw-violet-50)", border: "1px solid rgba(0,0,0,0.06)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--aw-violet)" }}>
+              <I.doc size={17}/>
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontWeight: 700, fontSize: 13, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{b.title}</div>
+              <div style={{ fontWeight: 700, fontSize: 13, color: "#3D2C22", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{b.title}</div>
               <div style={{ fontSize: 11, color: "var(--aw-ink-3)" }}>{b.date}</div>
             </div>
-            <button onClick={() => handleDelete(b.id)} style={{ color: "#DC2626", display: "flex", opacity: 0.6 }}><I.trash size={13}/></button>
+            <button onClick={() => handleDelete(b.id)} style={{ color: "#DC2626", display: "flex", opacity: 0.55 }}><I.trash size={13}/></button>
           </div>
         ))}
       </div>
     </div>
-  );
-};
-
-// ─── Full page: Products (The Leap-inspired) ─────────────────────────────────
-const Badge = ({ children, tone = "neutral" }) => {
-  const tones = {
-    live: { bg: "#A9E6A1", border: "#7CCF72" },
-    hidden: { bg: "#EFEDEA", border: "#DED6CE" },
-    pink: { bg: "#F4D7F0", border: "#E6B8DE" },
-    outline: { bg: "#fff", border: "#8DBA89" },
-    neutral: { bg: "#F7F1E7", border: "#E8E0D6" },
-  }[tone];
-  return (
-    <span style={{
-      display: "inline-flex", alignItems: "center", height: 24,
-      padding: "0 10px", borderRadius: 999,
-      background: tones.bg, border: `1px solid ${tones.border}`,
-      color: "#3D2C22", fontSize: 12, fontWeight: 600,
-      whiteSpace: "nowrap",
-    }}>{children}</span>
-  );
-};
-
-const ProductTileImage = ({ product, index }) => {
-  const gradients = [
-    "linear-gradient(135deg, #D7C8B8, #9F816D)",
-    "linear-gradient(135deg, #F4D7F0, #E8EFFE)",
-    "linear-gradient(135deg, #E6F5EE, #98C9B1)",
-    "linear-gradient(135deg, #FEF0E6, #E0A66E)",
-  ];
-  return (
-    <div style={{
-      width: 80, height: 80, flexShrink: 0,
-      background: gradients[index % gradients.length],
-      border: "1px solid #E8E0D6",
-      display: "flex", alignItems: "center", justifyContent: "center",
-      color: "rgba(61,44,34,0.55)",
-    }}>
-      <I.bag size={24}/>
-    </div>
-  );
-};
-
-const ProductsDesktopPage = ({ data, setData }) => {
-  const addProduct = () => {
-    setData({
-      ...data,
-      products: [
-        ...data.products,
-        {
-          id: 'p' + Date.now(),
-          title: 'Untitled guide',
-          desc: 'Nuevo producto listo para editar.',
-          price: 'Lead Magnet',
-        },
-      ],
-    });
-  };
-
-  const cards = data.products.length ? data.products : [
-    { id: 'empty-1', title: 'Subscribe to my newsletter!', desc: "Join claralid's Inner Circle and Unlock Insider Secrets.", price: 'Lead Magnet' },
-    { id: 'empty-2', title: 'Untitled guide', desc: '', price: 'Lead Magnet', hidden: true },
-    { id: 'empty-3', title: 'Untitled event', desc: 'khkh', price: 'Lead Magnet' },
-    { id: 'empty-4', title: 'Untitled book my time', desc: 'hghgh', price: 'Lead Magnet' },
-  ];
-
-  return (
-    <main className="aw-scroll" style={{ flex: 1, minWidth: 0, height: "100%", overflowY: "auto", background: "#F5F3EF" }}>
-      <div style={{
-        height: 64, display: "flex", alignItems: "center", gap: 18,
-        padding: "0 44px", background: "#fff", borderBottom: "1px solid #E8E0D6",
-        position: "sticky", top: 0, zIndex: 10,
-      }}>
-        <div style={{ fontSize: 16, fontWeight: 750, color: "#3D2C22" }}>Products</div>
-        <button onClick={addProduct} style={{
-          height: 38, padding: "0 30px", borderRadius: 999,
-          background: "#ECF956", color: "#3D2C22",
-          border: "1.5px solid #4C2116", fontSize: 15, fontWeight: 650,
-          display: "inline-flex", alignItems: "center", gap: 8,
-        }}><I.plus size={17}/> Add product</button>
-        <div style={{ flex: 1 }}/>
-        <a href={`/${data.user.handle}`} target="_blank" rel="noreferrer" style={{
-          display: "inline-flex", alignItems: "center", gap: 8,
-          fontSize: 14, fontWeight: 500, color: "#3D2C22", textDecoration: "none",
-        }}><I.globe size={17}/> View my store</a>
-      </div>
-
-      <div style={{ padding: "42px 56px 80px", maxWidth: 980 }}>
-        <h1 style={{
-          fontFamily: "Georgia, 'Times New Roman', serif",
-          fontSize: 34, fontWeight: 400, color: "#3D2C22",
-          margin: "0 0 28px", letterSpacing: "-0.03em",
-        }}>Products</h1>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(280px, 1fr))", gap: 16 }}>
-          {cards.map((p, i) => (
-            <button key={p.id} style={{
-              minHeight: 122, background: "#fff", border: "1.5px solid #4C413A",
-              borderRadius: 4, padding: 16, textAlign: "left",
-              display: "flex", flexDirection: "column", justifyContent: "space-between",
-              color: "#3D2C22",
-            }}>
-              <div style={{ display: "flex", gap: 14, justifyContent: "space-between" }}>
-                <div style={{ minWidth: 0 }}>
-                  <h2 style={{ fontSize: 15, fontWeight: 750, margin: "0 0 8px", lineHeight: 1.25 }}>{p.title || 'Untitled product'}</h2>
-                  {p.desc && <p style={{ fontSize: 13.5, margin: 0, lineHeight: 1.45, color: "#3D2C22" }}>{p.desc}</p>}
-                </div>
-                {(i === 0 || i === 2) && <ProductTileImage product={p} index={i}/>} 
-              </div>
-              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 18 }}>
-                <Badge tone={p.hidden ? "hidden" : "live"}>{p.hidden ? "Hidden" : "Live"}</Badge>
-                <Badge tone="pink">{i === 2 ? "Event" : i === 3 ? "Book my time" : i === 0 ? "Subscription form" : "Leap product"}</Badge>
-                <Badge tone="outline">{p.price || "Lead Magnet"}</Badge>
-              </div>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <button style={{
-        position: "fixed", right: 22, bottom: 22,
-        height: 42, padding: "0 18px", borderRadius: 999,
-        background: "#8E44AD", color: "#fff", fontSize: 14, fontWeight: 750,
-        boxShadow: "0 8px 20px rgba(84,38,112,0.25)",
-        display: "inline-flex", alignItems: "center", gap: 8,
-      }}>ⓘ Help</button>
-    </main>
   );
 };
 
@@ -815,9 +690,10 @@ const SecondaryPanel = ({ active, data, setData }) => (
   <div style={{
     width: 320, flexShrink: 0,
     borderRight: "1px solid #ECE6DE",
-    background: "#F5F3EF",
+    background: "linear-gradient(180deg, #FFFCF7 0%, #F5F3EF 100%)",
     display: "flex", flexDirection: "column",
     height: "100%", overflow: "hidden",
+    boxShadow: "inset -1px 0 0 rgba(255,255,255,0.75)",
   }}>
     {active === "home"     && <HomePanel     data={data}/>}
     {active === "profile"  && <BrandPanel    data={data} setData={setData}/>}
@@ -833,19 +709,21 @@ const SecondaryPanel = ({ active, data, setData }) => (
 const Canvas = ({ data, device }) => (
   <div style={{
     flex: 1, minWidth: 0,
-    background: "#EDEBE8",
+    background: "radial-gradient(circle at 50% 0%, rgba(205,181,231,0.16), transparent 34%), #ECEAE6",
     display: "flex",
-    alignItems: device === "phone" ? "flex-start" : "stretch",
+    alignItems: "flex-start",
     justifyContent: "center",
     overflowY: "auto",
-    padding: device === "phone" ? "32px 24px" : "0 0 0 0",
+    padding: device === "phone" ? "36px 24px" : "32px 40px",
   }}>
     <div style={{
       width: device === "phone" ? 390 : "100%",
       minHeight: "100%",
       background: "var(--aw-surface)",
-      boxShadow: device === "phone" ? "0 8px 48px rgba(0,0,0,0.16)" : "none",
-      borderRadius: device === "phone" ? 20 : 0,
+      boxShadow: device === "phone"
+        ? "0 8px 48px rgba(0,0,0,0.16)"
+        : "0 2px 16px rgba(38,38,43,0.07), 0 1px 2px rgba(38,38,43,0.04)",
+      borderRadius: device === "phone" ? 24 : 16,
       overflow: "hidden",
       flexShrink: 0,
     }}>
