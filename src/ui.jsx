@@ -105,4 +105,18 @@ const Toggle = ({ on, onChange, size = 28 }) => (
   </button>
 );
 
+const copyToClipboard = async (text) => {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+  }
+};
+
 export {  Icon, I, Chip, Wordmark, Avatar, ImgPH, Toggle  };
+export { copyToClipboard };

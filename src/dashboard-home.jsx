@@ -1,5 +1,5 @@
 import React from 'react';
-import { I } from './ui.jsx';
+import { I, copyToClipboard } from './ui.jsx';
 
 // AminoWeb — Dashboard screens
 // All screens render inside a phone frame's content area; a bottom tab bar
@@ -82,20 +82,18 @@ const TopBar = ({ title, sub, onBack, right }) => (
 // =============== HOME ===============
 const HomeScreen = ({ data, goTo, openPreview }) => {
   const [copied, setCopied] = React.useState(false);
+  const [qrHint, setQrHint] = React.useState(false);
+  const s = data.stats || {};
   const stats = [
-    { k: "Visitas hoy", v: "84", d: "+12%" },
-    { k: "Clics", v: "21", d: "+4" },
+    { k: "Visitas hoy", v: s.visitsToday ?? "—", d: s.visitsDelta ?? "" },
+    { k: "Clics", v: s.clicks ?? "—", d: s.clicksDelta ?? "" },
   ];
   const copyLink = async () => {
-    const url = `aminoweb.la/${data.user.handle}`;
-    try { await navigator.clipboard.writeText(url); } catch {
-      const el = document.createElement('textarea');
-      el.value = url; document.body.appendChild(el); el.select();
-      document.execCommand('copy'); document.body.removeChild(el);
-    }
+    await copyToClipboard(`aminoweb.la/${data.user.handle}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+  const firstName = (data.profile.name || data.user.handle).split(' ')[0];
   const activeCount = data.modules.filter(m => m.active).length;
   return (
     <div className="aw-scroll" style={{ height: "100%", overflowY: "auto", paddingBottom: 110 }}>
@@ -114,7 +112,7 @@ const HomeScreen = ({ data, goTo, openPreview }) => {
       {/* Greeting */}
       <div style={{ padding: "16px 18px 4px" }}>
         <div style={{ fontSize: 26, fontWeight: 800, letterSpacing: "-0.025em", lineHeight: 1.1 }}>
-          ¡Hola, Carolina! <span style={{ display: "inline-block" }}>👋</span>
+          ¡Hola, {firstName}! <span style={{ display: "inline-block" }}>👋</span>
         </div>
         <div style={{ color: "var(--aw-ink-3)", fontSize: 14, marginTop: 6 }}>
           Tu página tiene <b style={{ color: "var(--aw-ink)" }}>{activeCount} módulo{activeCount !== 1 ? 's' : ''}</b> activo{activeCount !== 1 ? 's' : ''}.
@@ -147,11 +145,18 @@ const HomeScreen = ({ data, goTo, openPreview }) => {
             }}>
               {copied ? <I.check size={16}/> : <I.copy size={16}/>}
             </button>
-            <button style={{
-              width: 40, height: 40, borderRadius: 12, background: "rgba(255,255,255,0.18)", color: "#fff",
+            <button onClick={() => { setQrHint(true); setTimeout(() => setQrHint(false), 2200); }} style={{
+              width: 40, height: 40, borderRadius: 12,
+              background: qrHint ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.18)", color: "#fff",
               display: "inline-flex", alignItems: "center", justifyContent: "center",
+              transition: "background .2s",
             }}><I.qr size={16}/></button>
           </div>
+          {qrHint && (
+            <div style={{ fontSize: 11, color: "rgba(255,255,255,0.85)", marginTop: 8, textAlign: "center", fontWeight: 600 }}>
+              Código QR próximamente ✨
+            </div>
+          )}
         </div>
       </div>
 

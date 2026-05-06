@@ -142,7 +142,7 @@ const ModulesScreen = ({ data, setData, goTo }) => {
 
   return (
     <div className="aw-scroll" style={{ height: "100%", overflowY: "auto", paddingBottom: 110 }}>
-      <TopBar title="Módulos" sub="Arrastra para reordenar · Toca el ojo para ocultar" />
+      <TopBar title="Módulos" sub="Usa ↑↓ para reordenar · Toca el ojo para ocultar" />
 
       <div style={{ padding: "0 18px 12px" }}>
         <button onClick={() => goTo("profile")} style={{

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import { AW_DATA } from './data.jsx';
 import { OnboardingScreen, LoginScreen } from './onboarding.jsx';
@@ -8,6 +8,24 @@ import { PublicPage } from './public-page.jsx';
 import { DesktopApp } from './desktop-app.jsx';
 import { LandingPage } from './landing.jsx';
 import './styles.css';
+
+function OnboardingRoute() {
+  const navigate = useNavigate();
+  return (
+    <div style={{ height: '100vh', overflow: 'hidden' }}>
+      <OnboardingScreen onDone={() => navigate('/dashboard')} />
+    </div>
+  );
+}
+
+function LoginRoute() {
+  const navigate = useNavigate();
+  return (
+    <div style={{ height: '100vh', overflow: 'hidden' }}>
+      <LoginScreen onLogin={() => navigate('/dashboard')} />
+    </div>
+  );
+}
 
 function useMediaQuery(query) {
   const [matches, setMatches] = useState(() => (typeof window !== 'undefined' ? window.matchMedia(query).matches : false));
@@ -56,7 +74,7 @@ function Dashboard({ data, setData }) {
 
   // Wraps in a mobile-like container, or full screen. The user requested to organize screens correctly.
   return (
-    <div style={{ maxWidth: 480, margin: '0 auto', height: '100vh', position: 'relative', background: '#FAF6EE', boxShadow: '0 0 20px rgba(0,0,0,0.1)' }}>
+    <div style={{ maxWidth: 480, margin: '0 auto', height: '100vh', position: 'relative', background: '#FAF6EE', boxShadow: '0 0 20px rgba(0,0,0,0.1)', transform: 'translateZ(0)' }}>
       {content}
       <TabBar active={tab} onChange={(t) => { setTab(t); setScreen(null); }} />
     </div>
@@ -64,7 +82,19 @@ function Dashboard({ data, setData }) {
 }
 
 export default function App() {
-  const [data, setData] = useState(AW_DATA);
+  const [data, setData] = useState(() => {
+    try {
+      const saved = localStorage.getItem('aw_data');
+      return saved ? JSON.parse(saved) : AW_DATA;
+    } catch {
+      return AW_DATA;
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem('aw_data', JSON.stringify(data));
+  }, [data]);
+
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   return (
@@ -72,17 +102,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         
-        <Route path="/onboarding" element={
-          <div style={{ height: '100vh', overflow: 'hidden' }}>
-            <OnboardingScreen onDone={() => window.location.href = import.meta.env.BASE_URL + 'dashboard'} />
-          </div>
-        } />
-
-        <Route path="/login" element={
-          <div style={{ height: '100vh', overflow: 'hidden' }}>
-            <LoginScreen onLogin={() => window.location.href = import.meta.env.BASE_URL + 'dashboard'} />
-          </div>
-        } />
+        <Route path="/onboarding" element={<OnboardingRoute />} />
+        <Route path="/login" element={<LoginRoute />} />
         
         <Route path="/dashboard/*" element={
           isDesktop ? (

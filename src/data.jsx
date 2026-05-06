@@ -46,6 +46,12 @@ export const AW_DATA = {
     layout:  "hybrid",   // stack | hybrid | grid
     cornerStyle: "soft", // soft | sharp
   },
+  stats: {
+    visitsToday: 84,
+    visitsDelta: "+12%",
+    clicks: 21,
+    clicksDelta: "+4",
+  },
 };
 
 
