@@ -106,7 +106,7 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usu
     {/* Collapse toggle */}
     <div style={{ padding: "6px 12px", borderTop: "1px solid var(--aw-line)", flexShrink: 0 }}>
       <button onClick={onToggle} title={collapsed ? "Expandir menú" : "Colapsar menú"} style={{
-        width: "100%", display: "flex", alignItems: "center", gap: 10,
+        width: "100%", display: "flex", alignItems: "center", gap: 0,
         padding: collapsed ? "8px" : "8px 10px",
         justifyContent: collapsed ? "center" : "flex-start",
         borderRadius: 8,
@@ -294,7 +294,7 @@ const DesignPanel = ({ data, setData }) => {
       <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 22 }}>
         {PALETTES.map(p => (
           <button key={p.id} onClick={() => setD("palette", p.id)} style={{
-            display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
+            display: "flex", alignItems: "center", gap: 0, padding: "10px 12px",
             borderRadius: 12, background: "#fff",
             border: data.design.palette === p.id ? "1.5px solid var(--aw-violet)" : "1px solid var(--aw-line)",
           }}>
