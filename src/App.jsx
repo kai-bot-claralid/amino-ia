@@ -74,9 +74,20 @@ function Dashboard({ data, setData }) {
 
   // Wraps in a mobile-like container, or full screen. The user requested to organize screens correctly.
   return (
-    <div style={{ maxWidth: 480, margin: '0 auto', height: '100vh', position: 'relative', background: '#FAF6EE', boxShadow: '0 0 20px rgba(0,0,0,0.1)', transform: 'translateZ(0)' }}>
-      {content}
-      <TabBar active={tab} onChange={(t) => { setTab(t); setScreen(null); }} />
+    <div className="aw-app-shell" style={{ minHeight: '100vh' }}>
+      <div className="aw-mobile-shell" style={{
+        maxWidth: 480,
+        margin: '0 auto',
+        height: '100vh',
+        position: 'relative',
+        background: 'var(--aw-cream-2)',
+        boxShadow: '0 24px 80px rgba(38,38,43,0.14)',
+        transform: 'translateZ(0)',
+        overflow: 'hidden',
+      }}>
+        {content}
+        <TabBar active={tab} onChange={(t) => { setTab(t); setScreen(null); }} />
+      </div>
     </div>
   );
 }

@@ -38,6 +38,13 @@ const DESKTOP_NAV = [
   { id: "design",   label: "Diseño",    dot: "#F5C5A3",  icon: I.brush   },
 ];
 
+const LEAP_TONES = {
+  orange: { bg: "#FEF0E6", color: "#D97706" },
+  pink:   { bg: "#FDE8F2", color: "#C93178" },
+  blue:   { bg: "#E8EFFE", color: "#3B6EE0" },
+  green:  { bg: "#E6F5EE", color: "#2A9E5E" },
+};
+
 // ─── Device icons (inline, no external dep) ──────────────────────────────────
 const MonitorIcon = ({ size = 18 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -55,10 +62,10 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usu
   const [hovered, setHovered] = useS(null);
   return (
   <aside style={{
-    width: collapsed ? 52 : 220,
+    width: collapsed ? 58 : 242,
     height: "100%",
-    background: "#f7f6f3",
-    borderRight: "1px solid #e9e9e7",
+    background: "#fff",
+    borderRight: "1px solid #ECE6DE",
     flexShrink: 0,
     display: "flex", flexDirection: "column",
     transition: "width .2s ease",
@@ -66,19 +73,20 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usu
   }}>
     {/* Workspace header */}
     <div style={{
-      height: 50,
-      padding: "0 14px",
+      height: 68,
+      padding: "0 20px",
       display: "flex", alignItems: "center", gap: 8,
-      borderBottom: "1px solid #e9e9e7",
+      borderBottom: "none",
       flexShrink: 0,
     }}>
       <img src={import.meta.env.BASE_URL + "aminoweb-mark.svg"} alt="Amino IA"
         style={{ height: 22, display: "block", flexShrink: 0 }}/>
       {!collapsed && (
         <span style={{
-          fontSize: 14, fontWeight: 600,
-          color: "#37352f",
-          letterSpacing: "-0.02em",
+          fontSize: 15, fontWeight: 800,
+          color: "#2E1E14",
+          letterSpacing: "0.08em",
+          textTransform: "uppercase",
           flex: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
         }}>Amino IA</span>
       )}
@@ -86,7 +94,7 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usu
         <button onClick={onToggle} style={{
           width: 24, height: 24, borderRadius: 4,
           display: "flex", alignItems: "center", justifyContent: "center",
-          background: "transparent", color: "#9b9b9b", flexShrink: 0,
+          background: "transparent", color: "var(--aw-ink-3)", flexShrink: 0,
         }}>
           <I.chev size={13} color="currentColor"/>
         </button>
@@ -99,10 +107,10 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usu
         <div style={{
           display: "flex", alignItems: "center", gap: 6,
           padding: "5px 8px",
-          background: "#fff",
-          border: "1px solid #e9e9e7",
+          background: "var(--aw-surface)",
+          border: "1px solid var(--aw-line)",
           borderRadius: 6,
-          color: "#9b9b9b",
+          color: "var(--aw-ink-3)",
           fontSize: 13,
         }}>
           <span style={{ fontSize: 14, opacity: 0.5 }}>🔍</span>
@@ -112,9 +120,9 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usu
     )}
 
     {/* Nav */}
-    <nav style={{ flex: 1, padding: "4px 8px", display: "flex", flexDirection: "column", gap: 0, overflowY: "auto" }}>
+    <nav style={{ flex: 1, padding: "6px 10px", display: "flex", flexDirection: "column", gap: 2, overflowY: "auto" }}>
       {!collapsed && (
-        <div style={{ fontSize: 11, fontWeight: 600, color: "#9b9b9b", letterSpacing: "0.04em", padding: "10px 6px 4px", textTransform: "uppercase" }}>
+        <div style={{ fontSize: 11, fontWeight: 600, color: "var(--aw-ink-3)", letterSpacing: "0.04em", padding: "10px 6px 4px", textTransform: "uppercase" }}>
           Página
         </div>
       )}
@@ -130,17 +138,17 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usu
               display: "flex", alignItems: "center", gap: 6,
               padding: collapsed ? "0" : "0 6px",
               justifyContent: collapsed ? "center" : "flex-start",
-              height: 32, borderRadius: 6,
-              background: isActive ? "#e9e9e7" : isHovered ? "#efefed" : "transparent",
-              color: isActive ? "#37352f" : isHovered ? "#37352f" : "#787774",
+              height: 38, borderRadius: 10,
+              background: isActive ? "#FCE8F0" : isHovered ? "#FAF0EA" : "transparent",
+              color: isActive ? "#C93178" : isHovered ? "#3D2C22" : "#5C3D2E",
               fontSize: 14,
-              fontWeight: isActive ? 600 : 400,
+              fontWeight: isActive ? 650 : 500,
               transition: "background .1s, color .1s",
               flexShrink: 0,
               marginBottom: 1,
               position: "relative",
             }}>
-            <item.icon size={14} color={isActive ? "#37352f" : isHovered ? "#37352f" : "#787774"}/>
+            <item.icon size={17} color="currentColor"/>
             {!collapsed && <span style={{ flex: 1, textAlign: "left" }}>{item.label}</span>}
             {collapsed && isActive && (
               <div style={{ position: "absolute", top: 6, right: 6, width: 4, height: 4, borderRadius: "50%", background: "#9B7BC9" }}/>
@@ -151,9 +159,9 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usu
     </nav>
 
     {/* User footer */}
-    <div style={{ padding: "6px 8px", borderTop: "1px solid #e9e9e7", flexShrink: 0 }}>
+    <div style={{ padding: "14px 14px 18px", borderTop: "1px solid #ECE6DE", flexShrink: 0 }}>
       {!collapsed && (
-        <div style={{ fontSize: 11, fontWeight: 600, color: "#9b9b9b", letterSpacing: "0.04em", padding: "4px 6px 6px", textTransform: "uppercase" }}>
+        <div style={{ fontSize: 11, fontWeight: 600, color: "var(--aw-ink-3)", letterSpacing: "0.04em", padding: "4px 6px 6px", textTransform: "uppercase" }}>
           Mi cuenta
         </div>
       )}
@@ -162,15 +170,15 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usu
         borderRadius: 6, justifyContent: collapsed ? "center" : "flex-start",
       }}>
         <div style={{
-          width: 24, height: 24, borderRadius: 4, background: "#e9e9e7",
+          width: 24, height: 24, borderRadius: 4, background: "var(--aw-line-2)",
           display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: 12, fontWeight: 600, color: "#787774", flexShrink: 0,
+          fontSize: 12, fontWeight: 600, color: "var(--aw-ink-2)", flexShrink: 0,
         }}>
           {(userName || "U").charAt(0).toUpperCase()}
         </div>
         {!collapsed && (
           <div style={{ minWidth: 0, flex: 1 }}>
-            <div style={{ fontSize: 13, fontWeight: 500, color: "#37352f", letterSpacing: "-0.01em" }}>{userName}</div>
+            <div style={{ fontSize: 13, fontWeight: 500, color: "var(--aw-ink)", letterSpacing: "-0.01em" }}>{userName}</div>
           </div>
         )}
       </div>
@@ -178,7 +186,7 @@ const DesktopSidebar = ({ active, onSelect, collapsed, onToggle, userName = "Usu
         <button onClick={onToggle} title="Expandir" style={{
           width: "100%", display: "flex", alignItems: "center", justifyContent: "center",
           padding: "4px", borderRadius: 4, marginTop: 2,
-          background: "transparent", color: "#9b9b9b",
+          background: "transparent", color: "var(--aw-ink-3)",
         }}>
           <I.chev size={13} color="currentColor" style={{ transform: "rotate(180deg)" }}/>
         </button>
@@ -202,19 +210,19 @@ const TopBar = ({ active, device, onDeviceChange, handle }) => {
   };
   return (
     <div style={{
-      height: 56, padding: "0 20px",
-      background: "#fff", borderBottom: "1px solid var(--aw-line)",
+      height: 64, padding: "0 36px",
+      background: "#F5F3EF", borderBottom: "1px solid #ECE6DE",
       display: "flex", alignItems: "center", gap: 0,
       flexShrink: 0,
     }}>
       <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
-        <span style={{ fontSize: 16, fontWeight: 700, letterSpacing: "-0.02em" }}>
-          {NAV_LABELS[active]}
+        <span style={{ fontSize: 15, fontWeight: 500, color: "#3D2C22" }}>
+          Welcome, {handle} 👋
         </span>
       </div>
 
       {/* Device switcher */}
-      <div style={{ display: "flex", gap: 2, padding: 4, background: "#F3F0EC", borderRadius: 10, marginRight: 12 }}>
+      <div style={{ display: "flex", gap: 2, padding: 4, background: "var(--aw-cream)", borderRadius: 10, marginRight: 12 }}>
         {[{ id: "desktop", Ico: MonitorIcon }, { id: "phone", Ico: PhoneIcon }].map(({ id, Ico }) => (
           <button key={id} onClick={() => onDeviceChange(id)} style={{
             width: 32, height: 32, borderRadius: 7,
@@ -260,47 +268,63 @@ const HomePanel = ({ data }) => {
     setCopied(true); setTimeout(() => setCopied(false), 2000);
   };
   const s = data.stats || {};
-  const stats = [
-    { k: "Visitas hoy",     v: s.visitsToday ?? "—",  d: s.visitsDelta ? `${s.visitsDelta} vs ayer` : "",  tone: "#AED5CD" },
-    { k: "Clics totales",   v: s.clicks ?? "—",       d: s.clicksDelta ? `${s.clicksDelta} vs ayer` : "", tone: "#CDB5E7" },
-    { k: "Módulos activos", v: `${data.modules.filter(m => m.active).length}/${data.modules.length}`, d: "", tone: "#B7D9EC" },
+  const actions = [
+    { title: "Configura tu página pública", desc: "Ajusta nombre, bio, portada y estilo para que tu perfil se vea listo para compartir.", btn: "Personalizar", tone: "orange", icon: I.brush },
+    { title: "Agrega un producto o servicio", desc: "Crea una oferta simple con precio, descripción y contacto directo por WhatsApp.", btn: "Crear producto", tone: "pink", icon: I.bag },
+    { title: "Publica tus enlaces importantes", desc: "Organiza Instagram, WhatsApp, tienda, calendario y recursos en un solo lugar.", btn: "Editar links", tone: "blue", icon: I.link },
+    { title: "Revisa tu actividad", desc: `${s.visitsToday ?? "—"} visitas hoy · ${s.clicks ?? "—"} clics registrados.`, btn: "Ver resumen", tone: "green", icon: I.analytics || I.spark },
   ];
   return (
-    <div className="aw-scroll" style={{ flex: 1, overflowY: "auto", padding: 18 }}>
-      <p style={{ fontSize: 12, fontWeight: 700, color: "var(--aw-ink-3)", textTransform: "uppercase", letterSpacing: "0.06em", margin: "0 0 14px" }}>
-        Resumen
-      </p>
-      <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-        {stats.map(s => (
-          <div key={s.k} style={{
-            background: "#fff", borderRadius: 12, padding: "14px 16px",
-            display: "flex", alignItems: "center", gap: 14,
-            boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
-          }}>
-            <div style={{ width: 10, height: 10, borderRadius: "50%", background: s.tone, flexShrink: 0 }}/>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: "var(--aw-ink-3)", textTransform: "uppercase", letterSpacing: "0.04em" }}>{s.k}</div>
-              <div style={{ fontSize: 24, fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.2 }}>{s.v}</div>
-              {s.d && <div style={{ fontSize: 11, color: "var(--aw-success)", fontWeight: 700 }}>{s.d}</div>}
+    <div className="aw-scroll" style={{ flex: 1, overflowY: "auto", padding: "40px 36px 60px" }}>
+      <h1 style={{ fontSize: 28, fontWeight: 650, color: "#3D2C22", margin: "0 0 28px", letterSpacing: "-0.01em" }}>
+        Get started
+      </h1>
+
+      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+        {actions.map((a) => {
+          const tone = LEAP_TONES[a.tone];
+          return (
+            <div key={a.title} style={{
+              display: "flex", alignItems: "center", gap: 18,
+              background: "#fff", border: "1.5px solid #E8E0D6",
+              borderRadius: 14, padding: "20px 22px",
+              boxShadow: "0 1px 0 rgba(61,44,34,0.02)",
+            }}>
+              <div style={{
+                width: 46, height: 46, borderRadius: "50%",
+                background: tone.bg, color: tone.color,
+                display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+              }}><a.icon size={23} color="currentColor"/></div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 15, fontWeight: 650, color: "#3D2C22", marginBottom: 5 }}>{a.title}</div>
+                <div style={{ fontSize: 13.5, color: "#7A5C4A", lineHeight: 1.5 }}>{a.desc}</div>
+              </div>
+              <button style={{
+                display: "inline-flex", alignItems: "center", gap: 5,
+                padding: "8px 18px", borderRadius: 30,
+                border: "1.5px solid #C9B8AE", background: "#fff",
+                fontSize: 13.5, fontWeight: 500, color: "#3D2C22", whiteSpace: "nowrap",
+              }}>{a.btn}</button>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      <p style={{ fontSize: 12, fontWeight: 700, color: "var(--aw-ink-3)", textTransform: "uppercase", letterSpacing: "0.06em", margin: "20px 0 10px" }}>
+      <p style={{ fontSize: 12, fontWeight: 700, color: "#8A6A5A", textTransform: "uppercase", letterSpacing: "0.06em", margin: "28px 0 10px" }}>
         Tu página
       </p>
       <div style={{
-        background: "linear-gradient(135deg, #9B7BC9 0%, #7A5CA8 100%)",
-        borderRadius: 12, padding: "16px", color: "#fff",
+        background: "linear-gradient(135deg, #FDE8F2 0%, #E8EFFE 100%)",
+        border: "1.5px solid #E8E0D6",
+        borderRadius: 14, padding: "16px", color: "#3D2C22",
       }}>
-        <div style={{ fontSize: 12, opacity: 0.8, marginBottom: 4 }}>Enlace público</div>
+        <div style={{ fontSize: 12, opacity: 0.65, marginBottom: 4 }}>Enlace público</div>
         <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 12 }}>aminoweb.la/{data.user.handle}</div>
         <div style={{ display: "flex", gap: 8 }}>
-          <button onClick={handleCopy} style={{ flex: 1, height: 32, borderRadius: 8, background: copied ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.18)", color: "#fff", fontSize: 12, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: 5, transition: "background .2s" }}>
+          <button onClick={handleCopy} style={{ flex: 1, height: 34, borderRadius: 999, background: copied ? "#C93178" : "#fff", color: copied ? "#fff" : "#3D2C22", border: "1.5px solid #C9B8AE", fontSize: 12, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: 5, transition: "background .2s" }}>
             {copied ? <><I.check size={13}/> Copiado</> : <><I.copy size={13}/> Copiar</>}
           </button>
-          <button style={{ flex: 1, height: 32, borderRadius: 8, background: "#fff", color: "var(--aw-violet)", fontSize: 12, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: 5 }}>
+          <button style={{ flex: 1, height: 34, borderRadius: 999, background: "#fff", color: "#3D2C22", border: "1.5px solid #C9B8AE", fontSize: 12, fontWeight: 700, display: "flex", alignItems: "center", justifyContent: "center", gap: 5 }}>
             <I.qr size={13}/> QR
           </button>
         </div>
@@ -335,7 +359,7 @@ const DesignPanel = ({ data, setData }) => {
         {PALETTES.map(p => (
           <button key={p.id} onClick={() => setD("palette", p.id)} style={{
             display: "flex", alignItems: "center", gap: 0, padding: "10px 12px",
-            borderRadius: 12, background: "#fff",
+            borderRadius: 12, background: "var(--aw-surface)",
             border: data.design.palette === p.id ? "1.5px solid var(--aw-violet)" : "1px solid var(--aw-line)",
           }}>
             <div style={{ display: "flex", gap: 4 }}>
@@ -354,7 +378,7 @@ const DesignPanel = ({ data, setData }) => {
         {LAYOUTS.map(l => (
           <button key={l.id} onClick={() => setD("layout", l.id)} style={{
             display: "flex", alignItems: "center", gap: 12, padding: "10px 12px",
-            borderRadius: 12, background: "#fff",
+            borderRadius: 12, background: "var(--aw-surface)",
             border: data.design.layout === l.id ? "1.5px solid var(--aw-violet)" : "1px solid var(--aw-line)",
           }}>
             <LayoutPreview kind={l.id}/>
@@ -373,7 +397,7 @@ const DesignPanel = ({ data, setData }) => {
       <div style={{ display: "flex", gap: 8 }}>
         {[{ id: "soft", label: "Suaves" }, { id: "sharp", label: "Marcadas" }].map(c => (
           <button key={c.id} onClick={() => setD("cornerStyle", c.id)} style={{
-            flex: 1, height: 40, borderRadius: 10, background: "#fff",
+            flex: 1, height: 40, borderRadius: 10, background: "var(--aw-surface)",
             border: data.design.cornerStyle === c.id ? "1.5px solid var(--aw-violet)" : "1px solid var(--aw-line)",
             fontSize: 13, fontWeight: 700,
           }}>{c.label}</button>
@@ -396,7 +420,7 @@ const BrandPanel = ({ data, setData }) => {
       </p>
       <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18 }}>
         <Avatar size={52} label="C"/>
-        <button style={{ height: 32, padding: "0 14px", borderRadius: 8, background: "#fff", border: "1px solid var(--aw-line)", fontSize: 12, fontWeight: 700 }}>
+        <button style={{ height: 32, padding: "0 14px", borderRadius: 8, background: "var(--aw-surface)", border: "1px solid var(--aw-line)", fontSize: 12, fontWeight: 700 }}>
           Cambiar foto
         </button>
       </div>
@@ -468,8 +492,8 @@ const LinksPanel = ({ data, setData }) => {
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {data.links.map(l => (
-          <div key={l.id} style={{ background: "#fff", border: "1px solid var(--aw-line)", borderRadius: 12, padding: "11px 12px", display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ width: 32, height: 32, borderRadius: 8, background: "#F4EFE6", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--aw-violet)" }}>
+          <div key={l.id} style={{ background: "var(--aw-surface)", border: "1px solid var(--aw-line)", borderRadius: 12, padding: "11px 12px", display: "flex", alignItems: "center", gap: 10 }}>
+            <div style={{ width: 32, height: 32, borderRadius: 8, background: "var(--aw-cream)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--aw-violet)" }}>
               {React.createElement(getLinkIcon(l.icon), { size: 15 })}
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
@@ -524,7 +548,7 @@ const ProductsPanel = ({ data, setData }) => {
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {data.products.map(p => (
-          <div key={p.id} style={{ background: "#fff", border: "1px solid var(--aw-line)", borderRadius: 12, padding: "11px 12px", display: "flex", alignItems: "center", gap: 10 }}>
+          <div key={p.id} style={{ background: "var(--aw-surface)", border: "1px solid var(--aw-line)", borderRadius: 12, padding: "11px 12px", display: "flex", alignItems: "center", gap: 10 }}>
             <div style={{ width: 40, height: 40, borderRadius: 8, background: "var(--aw-coral-50)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--aw-coral)" }}>
               <I.bag size={18}/>
             </div>
@@ -587,7 +611,7 @@ const EventsPanel = ({ data, setData }) => {
           const day = d.getDate();
           const mon = ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SEP","OCT","NOV","DIC"][d.getMonth()];
           return (
-            <div key={e.id} style={{ background: "#fff", border: "1px solid var(--aw-line)", borderRadius: 12, padding: "11px 12px", display: "flex", alignItems: "center", gap: 10 }}>
+            <div key={e.id} style={{ background: "var(--aw-surface)", border: "1px solid var(--aw-line)", borderRadius: 12, padding: "11px 12px", display: "flex", alignItems: "center", gap: 10 }}>
               <div style={{ width: 40, height: 44, borderRadius: 8, background: "var(--aw-coral-50)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                 <span style={{ fontSize: 9, fontWeight: 700, color: "#9A3412", letterSpacing: "0.06em" }}>{mon}</span>
                 <span style={{ fontSize: 18, fontWeight: 800, color: "#9A3412", lineHeight: 1 }}>{day}</span>
@@ -643,7 +667,7 @@ const BlogPanel = ({ data, setData }) => {
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         {data.blog.map(b => (
-          <div key={b.id} style={{ background: "#fff", border: "1px solid var(--aw-line)", borderRadius: 12, padding: "11px 12px", display: "flex", alignItems: "center", gap: 10 }}>
+          <div key={b.id} style={{ background: "var(--aw-surface)", border: "1px solid var(--aw-line)", borderRadius: 12, padding: "11px 12px", display: "flex", alignItems: "center", gap: 10 }}>
             <div style={{ width: 40, height: 40, borderRadius: 8, background: "var(--aw-violet-50)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "var(--aw-violet)" }}>
               <I.doc size={18}/>
             </div>
@@ -659,12 +683,139 @@ const BlogPanel = ({ data, setData }) => {
   );
 };
 
+// ─── Full page: Products (The Leap-inspired) ─────────────────────────────────
+const Badge = ({ children, tone = "neutral" }) => {
+  const tones = {
+    live: { bg: "#A9E6A1", border: "#7CCF72" },
+    hidden: { bg: "#EFEDEA", border: "#DED6CE" },
+    pink: { bg: "#F4D7F0", border: "#E6B8DE" },
+    outline: { bg: "#fff", border: "#8DBA89" },
+    neutral: { bg: "#F7F1E7", border: "#E8E0D6" },
+  }[tone];
+  return (
+    <span style={{
+      display: "inline-flex", alignItems: "center", height: 24,
+      padding: "0 10px", borderRadius: 999,
+      background: tones.bg, border: `1px solid ${tones.border}`,
+      color: "#3D2C22", fontSize: 12, fontWeight: 600,
+      whiteSpace: "nowrap",
+    }}>{children}</span>
+  );
+};
+
+const ProductTileImage = ({ product, index }) => {
+  const gradients = [
+    "linear-gradient(135deg, #D7C8B8, #9F816D)",
+    "linear-gradient(135deg, #F4D7F0, #E8EFFE)",
+    "linear-gradient(135deg, #E6F5EE, #98C9B1)",
+    "linear-gradient(135deg, #FEF0E6, #E0A66E)",
+  ];
+  return (
+    <div style={{
+      width: 80, height: 80, flexShrink: 0,
+      background: gradients[index % gradients.length],
+      border: "1px solid #E8E0D6",
+      display: "flex", alignItems: "center", justifyContent: "center",
+      color: "rgba(61,44,34,0.55)",
+    }}>
+      <I.bag size={24}/>
+    </div>
+  );
+};
+
+const ProductsDesktopPage = ({ data, setData }) => {
+  const addProduct = () => {
+    setData({
+      ...data,
+      products: [
+        ...data.products,
+        {
+          id: 'p' + Date.now(),
+          title: 'Untitled guide',
+          desc: 'Nuevo producto listo para editar.',
+          price: 'Lead Magnet',
+        },
+      ],
+    });
+  };
+
+  const cards = data.products.length ? data.products : [
+    { id: 'empty-1', title: 'Subscribe to my newsletter!', desc: "Join claralid's Inner Circle and Unlock Insider Secrets.", price: 'Lead Magnet' },
+    { id: 'empty-2', title: 'Untitled guide', desc: '', price: 'Lead Magnet', hidden: true },
+    { id: 'empty-3', title: 'Untitled event', desc: 'khkh', price: 'Lead Magnet' },
+    { id: 'empty-4', title: 'Untitled book my time', desc: 'hghgh', price: 'Lead Magnet' },
+  ];
+
+  return (
+    <main className="aw-scroll" style={{ flex: 1, minWidth: 0, height: "100%", overflowY: "auto", background: "#F5F3EF" }}>
+      <div style={{
+        height: 64, display: "flex", alignItems: "center", gap: 18,
+        padding: "0 44px", background: "#fff", borderBottom: "1px solid #E8E0D6",
+        position: "sticky", top: 0, zIndex: 10,
+      }}>
+        <div style={{ fontSize: 16, fontWeight: 750, color: "#3D2C22" }}>Products</div>
+        <button onClick={addProduct} style={{
+          height: 38, padding: "0 30px", borderRadius: 999,
+          background: "#ECF956", color: "#3D2C22",
+          border: "1.5px solid #4C2116", fontSize: 15, fontWeight: 650,
+          display: "inline-flex", alignItems: "center", gap: 8,
+        }}><I.plus size={17}/> Add product</button>
+        <div style={{ flex: 1 }}/>
+        <a href={`/${data.user.handle}`} target="_blank" rel="noreferrer" style={{
+          display: "inline-flex", alignItems: "center", gap: 8,
+          fontSize: 14, fontWeight: 500, color: "#3D2C22", textDecoration: "none",
+        }}><I.globe size={17}/> View my store</a>
+      </div>
+
+      <div style={{ padding: "42px 56px 80px", maxWidth: 980 }}>
+        <h1 style={{
+          fontFamily: "Georgia, 'Times New Roman', serif",
+          fontSize: 34, fontWeight: 400, color: "#3D2C22",
+          margin: "0 0 28px", letterSpacing: "-0.03em",
+        }}>Products</h1>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(280px, 1fr))", gap: 16 }}>
+          {cards.map((p, i) => (
+            <button key={p.id} style={{
+              minHeight: 122, background: "#fff", border: "1.5px solid #4C413A",
+              borderRadius: 4, padding: 16, textAlign: "left",
+              display: "flex", flexDirection: "column", justifyContent: "space-between",
+              color: "#3D2C22",
+            }}>
+              <div style={{ display: "flex", gap: 14, justifyContent: "space-between" }}>
+                <div style={{ minWidth: 0 }}>
+                  <h2 style={{ fontSize: 15, fontWeight: 750, margin: "0 0 8px", lineHeight: 1.25 }}>{p.title || 'Untitled product'}</h2>
+                  {p.desc && <p style={{ fontSize: 13.5, margin: 0, lineHeight: 1.45, color: "#3D2C22" }}>{p.desc}</p>}
+                </div>
+                {(i === 0 || i === 2) && <ProductTileImage product={p} index={i}/>} 
+              </div>
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 18 }}>
+                <Badge tone={p.hidden ? "hidden" : "live"}>{p.hidden ? "Hidden" : "Live"}</Badge>
+                <Badge tone="pink">{i === 2 ? "Event" : i === 3 ? "Book my time" : i === 0 ? "Subscription form" : "Leap product"}</Badge>
+                <Badge tone="outline">{p.price || "Lead Magnet"}</Badge>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <button style={{
+        position: "fixed", right: 22, bottom: 22,
+        height: 42, padding: "0 18px", borderRadius: 999,
+        background: "#8E44AD", color: "#fff", fontSize: 14, fontWeight: 750,
+        boxShadow: "0 8px 20px rgba(84,38,112,0.25)",
+        display: "inline-flex", alignItems: "center", gap: 8,
+      }}>ⓘ Help</button>
+    </main>
+  );
+};
+
 // ─── Secondary panel container ────────────────────────────────────────────────
 const SecondaryPanel = ({ active, data, setData }) => (
   <div style={{
-    width: 280, flexShrink: 0,
-    borderRight: "1px solid var(--aw-line)",
-    background: "var(--aw-cream-2)",
+    width: active === "home" ? 760 : 320, flexShrink: 0,
+    borderRight: "1px solid #ECE6DE",
+    background: "#F5F3EF",
     display: "flex", flexDirection: "column",
     height: "100%", overflow: "hidden",
   }}>
@@ -687,12 +838,12 @@ const Canvas = ({ data, device }) => (
     alignItems: device === "phone" ? "flex-start" : "stretch",
     justifyContent: "center",
     overflowY: "auto",
-    padding: device === "phone" ? "32px 24px" : 0,
+    padding: device === "phone" ? "32px 24px" : "0 0 0 0",
   }}>
     <div style={{
       width: device === "phone" ? 390 : "100%",
       minHeight: "100%",
-      background: "#fff",
+      background: "var(--aw-surface)",
       boxShadow: device === "phone" ? "0 8px 48px rgba(0,0,0,0.16)" : "none",
       borderRadius: device === "phone" ? 20 : 0,
       overflow: "hidden",
@@ -710,18 +861,24 @@ const DesktopApp = ({ data, setData }) => {
   const [device, setDevice] = useS("desktop");
 
   return (
-    <div style={{ display: "flex", height: "100vh", width: "100%", overflow: "hidden", background: "var(--aw-cream)", fontFamily: "'Inter', -apple-system, system-ui, sans-serif" }}>
+    <div style={{ display: "flex", height: "100vh", width: "100%", overflow: "hidden", background: "#F5F3EF", fontFamily: "'Inter', -apple-system, system-ui, sans-serif", color: "#3D2C22" }}>
       <DesktopSidebar
         active={active} onSelect={setActive}
         collapsed={collapsed} onToggle={() => setCollapsed(c => !c)}
         userName={data.profile.name}
       />
       <div style={{ flex: 1, minWidth: 0, display: "flex", flexDirection: "column" }}>
-        <TopBar active={active} device={device} onDeviceChange={setDevice} handle={data.user.handle}/>
-        <div style={{ flex: 1, minHeight: 0, display: "flex" }}>
-          <SecondaryPanel active={active} data={data} setData={setData}/>
-          <Canvas data={data} device={device}/>
-        </div>
+        {active === "products" ? (
+          <ProductsDesktopPage data={data} setData={setData}/>
+        ) : (
+          <>
+            <TopBar active={active} device={device} onDeviceChange={setDevice} handle={data.user.handle}/>
+            <div style={{ flex: 1, minHeight: 0, display: "flex" }}>
+              <SecondaryPanel active={active} data={data} setData={setData}/>
+              <Canvas data={data} device={device}/>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

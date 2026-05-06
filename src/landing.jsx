@@ -1,5 +1,17 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { I } from './ui.jsx';
+
+const useIsNarrow = () => {
+  const [narrow, setNarrow] = React.useState(() => typeof window !== 'undefined' && window.innerWidth < 760);
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+    const onResize = () => setNarrow(window.innerWidth < 760);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+  return narrow;
+};
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 const Btn = ({ children, onClick, variant = 'primary', size = 'md', style = {} }) => {
@@ -114,16 +126,16 @@ const Navbar = ({ onSignup, onLogin }) => (
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 const HANDLES = ['@carolina.studio', '@marcos.foto', '@la.tienda.ana', '@chef.mario'];
 
-const Hero = ({ onSignup }) => (
+const Hero = ({ onSignup, compact = false }) => (
   <section style={{
-    background: 'linear-gradient(160deg, #F3EFF9 0%, #FAF6EE 45%, #FFF0E8 100%)',
-    padding: '80px 28px 0',
+    background: 'radial-gradient(circle at 78% 14%, rgba(174,213,205,0.42), transparent 25%), radial-gradient(circle at 18% 18%, rgba(205,181,231,0.44), transparent 28%), linear-gradient(160deg, #F3EFF9 0%, #FAF6EE 48%, #FFF0E8 100%)',
+    padding: compact ? '54px 20px 0' : '80px 28px 0',
     overflow: 'hidden',
   }}>
-    <div style={{ maxWidth: 1120, margin: '0 auto', display: 'flex', alignItems: 'flex-end', gap: 48 }}>
+    <div style={{ maxWidth: 1120, margin: '0 auto', display: 'flex', flexDirection: compact ? 'column' : 'row', alignItems: compact ? 'center' : 'flex-end', gap: compact ? 28 : 48 }}>
 
       {/* Left */}
-      <div style={{ flex: '0 0 520px', paddingBottom: 80 }}>
+      <div style={{ flex: compact ? 'none' : '0 0 520px', paddingBottom: compact ? 18 : 80, textAlign: compact ? 'center' : 'left' }}>
         <Pill><I.spark size={11} color="var(--aw-violet)"/> Link-in-bio para creadores LATAM</Pill>
         <h1 style={{
           fontSize: 'clamp(42px, 5.5vw, 64px)', fontWeight: 800,
@@ -133,17 +145,17 @@ const Hero = ({ onSignup }) => (
           Todo lo que eres,<br/>
           <span style={{ color: 'var(--aw-violet)' }}>en un solo link.</span>
         </h1>
-        <p style={{ fontSize: 18, color: 'var(--aw-ink-2)', lineHeight: 1.65, margin: '0 0 36px', maxWidth: 420 }}>
+        <p style={{ fontSize: compact ? 16 : 18, color: 'var(--aw-ink-2)', lineHeight: 1.65, margin: '0 auto 36px', maxWidth: 460 }}>
           Crea tu página personal con links, productos y eventos. Lista en 2 minutos — sin código, sin tarjeta.
         </p>
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 12, alignItems: 'center', justifyContent: compact ? 'center' : 'flex-start', flexWrap: 'wrap' }}>
           <Btn onClick={onSignup} variant="primary" size="lg">
             Crear mi página gratis
           </Btn>
           <span style={{ fontSize: 13, color: 'var(--aw-ink-3)', fontWeight: 500 }}>Sin tarjeta · Listo en 2 min</span>
         </div>
         {/* Handle chips */}
-        <div style={{ display: 'flex', gap: 8, marginTop: 32, flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: 8, marginTop: 32, flexWrap: 'wrap', justifyContent: compact ? 'center' : 'flex-start' }}>
           {HANDLES.map(h => (
             <span key={h} style={{
               fontSize: 12, color: 'var(--aw-ink-3)', fontWeight: 500,
@@ -156,9 +168,9 @@ const Hero = ({ onSignup }) => (
       </div>
 
       {/* Right — phone */}
-      <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end', paddingBottom: 0, gap: 20 }}>
+      <div style={{ flex: 1, display: 'flex', justifyContent: compact ? 'center' : 'flex-end', alignItems: 'flex-end', paddingBottom: 0, gap: compact ? 12 : 20, width: compact ? '100%' : undefined }}>
         {/* floating stat card */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 60, alignSelf: 'center' }}>
+        <div style={{ display: compact ? 'none' : 'flex', flexDirection: 'column', gap: 12, marginBottom: 60, alignSelf: 'center' }}>
           {[
             { label: 'Visitas hoy', v: '2.4k', d: '+18%', bg: '#fff' },
             { label: 'Ingresos este mes', v: '$840', d: '+32%', bg: 'var(--aw-violet)' },
@@ -176,7 +188,7 @@ const Hero = ({ onSignup }) => (
             </div>
           ))}
         </div>
-        <PhoneShell style={{ marginBottom: 0 }}>
+        <PhoneShell scale={compact ? 0.92 : 1} style={{ marginBottom: 0 }}>
           <MockPage/>
         </PhoneShell>
       </div>
@@ -277,8 +289,8 @@ const FEATURES = [
   },
 ];
 
-const Features = () => (
-  <section style={{ background: 'var(--aw-cream)', padding: '96px 28px' }}>
+const Features = ({ compact = false }) => (
+  <section style={{ background: 'var(--aw-cream)', padding: compact ? '68px 20px' : '96px 28px' }}>
     <div style={{ maxWidth: 1120, margin: '0 auto' }}>
       <div style={{ textAlign: 'center', marginBottom: 72 }}>
         <Pill><I.layers size={11} color="var(--aw-violet)"/> Todo en uno</Pill>
@@ -296,12 +308,12 @@ const Features = () => (
             background: '#fff', borderRadius: 24,
             border: '1.5px solid var(--aw-line)',
             display: 'flex', alignItems: 'center',
-            flexDirection: i % 2 === 0 ? 'row' : 'row-reverse',
+            flexDirection: compact ? 'column' : (i % 2 === 0 ? 'row' : 'row-reverse'),
             overflow: 'hidden',
             boxShadow: '0 2px 20px rgba(26,21,48,0.05)',
           }}>
             {/* text */}
-            <div style={{ flex: 1, padding: '48px 48px' }}>
+            <div style={{ flex: 1, padding: compact ? '30px 26px 24px' : '48px 48px' }}>
               <Pill color={f.pill.color} bg={f.pill.bg}><f.pill.icon size={11} color={f.pill.color}/> {f.pill.label}</Pill>
               <h3 style={{ fontSize: 'clamp(22px, 2.5vw, 30px)', fontWeight: 800, letterSpacing: '-0.025em', color: 'var(--aw-ink)', margin: '14px 0 12px', lineHeight: 1.15 }}>{f.title}</h3>
               <p style={{ fontSize: 15, color: 'var(--aw-ink-3)', lineHeight: 1.65, margin: '0 0 24px', maxWidth: 360 }}>{f.body}</p>
@@ -318,9 +330,9 @@ const Features = () => (
             </div>
             {/* visual */}
             <div style={{
-              width: 340, flexShrink: 0, background: f.accent,
+              width: compact ? '100%' : 340, flexShrink: 0, background: f.accent,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              padding: '48px 40px', alignSelf: 'stretch',
+              padding: compact ? '32px 20px' : '48px 40px', alignSelf: 'stretch',
             }}>
               {f.visual}
             </div>
@@ -477,15 +489,16 @@ const Footer = () => (
 // ─── Export ───────────────────────────────────────────────────────────────────
 export function LandingPage() {
   const navigate = useNavigate();
+  const compact = useIsNarrow();
   const goSignup = () => navigate('/onboarding');
   const goLogin  = () => navigate('/login');
 
   return (
     <div style={{ minHeight: '100vh', background: 'var(--aw-cream)', fontFamily: "'Inter', -apple-system, system-ui, sans-serif", color: 'var(--aw-ink)' }}>
       <Navbar onSignup={goSignup} onLogin={goLogin}/>
-      <Hero onSignup={goSignup}/>
+      <Hero onSignup={goSignup} compact={compact}/>
       <SocialProof/>
-      <Features/>
+      <Features compact={compact}/>
       <HowItWorks/>
       <Testimonials/>
       <FinalCTA onSignup={goSignup}/>

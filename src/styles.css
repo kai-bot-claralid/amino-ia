@@ -4,32 +4,44 @@
    Type: Plus Jakarta Sans for UI, Instrument Serif for editorial accents. */
 :root {
   /* Primary = lavender from logo, deepened for usable contrast */
-  --aw-violet: #9B7BC9;        /* lavender primary */
-  --aw-violet-600: #7E5CB0;    /* hover / pressed */
-  --aw-violet-50: #F2ECFA;     /* lavender wash */
+  --aw-violet: #8D68BF;        /* lavender primary, slightly deeper */
+  --aw-violet-600: #7550A8;    /* hover / pressed */
+  --aw-violet-50: #F3ECFB;     /* lavender wash */
   --aw-violet-pastel: #CDB5E7; /* logo lavender pastel */
 
   /* Accent = mint from logo */
-  --aw-coral: #6FB8A8;          /* mint primary (kept var name for compat) */
-  --aw-coral-50: #E8F4F0;
+  --aw-coral: #5EAFA0;          /* mint primary (kept var name for compat) */
+  --aw-coral-50: #E7F5F1;
   --aw-mint-pastel: #AED5CD;    /* logo mint pastel */
 
   /* Sky from logo (used as info / chart accent) */
-  --aw-sky: #6FA8C7;
-  --aw-sky-50: #ECF4FA;
+  --aw-sky: #5C9FC2;
+  --aw-sky-50: #EAF5FB;
   --aw-sky-pastel: #B7D9EC;
 
   /* Warm neutrals */
-  --aw-cream: #FAF6EE;
+  --aw-cream: #F7F1E7;
   --aw-cream-2: #FFFBF5;
+  --aw-surface: #FFFFFF;
+  --aw-surface-soft: #FFFCF7;
 
   /* Text — charcoal from the logo wordmark, not violet-tinted ink */
-  --aw-ink: #2E2E33;            /* near logo #4D4D4D, deeper for body */
-  --aw-ink-2: #4D4D4D;          /* matches logo wordmark */
-  --aw-ink-3: #8B8B92;          /* muted */
+  --aw-ink: #26262B;            /* near logo #4D4D4D, deeper for body */
+  --aw-ink-2: #4B4B52;          /* matches logo wordmark */
+  --aw-ink-3: #85858E;          /* muted */
 
-  --aw-line: #E8E2D4;           /* warm cream line */
-  --aw-line-2: #F0EBDF;
+  --aw-line: #E7DDCF;           /* warm cream line */
+  --aw-line-2: #F1EADF;
+
+  --aw-shadow-xs: 0 1px 2px rgba(38,38,43,0.05);
+  --aw-shadow-sm: 0 8px 24px rgba(38,38,43,0.08);
+  --aw-shadow-md: 0 18px 48px rgba(38,38,43,0.12);
+  --aw-shadow-glow: 0 16px 40px rgba(141,104,191,0.28);
+
+  --aw-radius-sm: 12px;
+  --aw-radius-md: 18px;
+  --aw-radius-lg: 26px;
+  --aw-radius-xl: 34px;
 
   --aw-success: #6FB8A8;        /* mint */
   --aw-yellow: #E8C56C;         /* softer than #FBBF24 */
@@ -58,6 +70,44 @@ html, body {
 
 body {
   min-height: 100vh;
+}
+
+::selection {
+  background: rgba(141,104,191,0.22);
+  color: var(--aw-ink);
+}
+
+a { color: inherit; }
+
+button, input, textarea, select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, [role="button"] {
+  transition: transform .16s ease, box-shadow .16s ease, background .16s ease, color .16s ease, border-color .16s ease, opacity .16s ease;
+}
+
+button:hover:not(:disabled), [role="button"]:hover {
+  transform: translateY(-1px);
+}
+
+button:active:not(:disabled), [role="button"]:active {
+  transform: translateY(0) scale(.985);
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid rgba(141,104,191,0.22) !important;
+  outline-offset: 2px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: rgba(141,104,191,0.55) !important;
+  box-shadow: 0 0 0 4px rgba(141,104,191,0.10);
 }
 
 button {
@@ -106,7 +156,9 @@ button {
 /* Subtle scrolling shadow for canvas */
 .aw-canvas-bg {
   background:
-    radial-gradient(ellipse at top, #FFFBF5 0%, #F4EFE6 60%);
+    radial-gradient(circle at 12% 10%, rgba(205,181,231,0.34), transparent 28%),
+    radial-gradient(circle at 88% 0%, rgba(174,213,205,0.30), transparent 28%),
+    radial-gradient(ellipse at top, #FFFBF5 0%, #F4EFE6 62%);
   min-height: 100vh;
 }
 
@@ -115,3 +167,31 @@ button {
 .aw-display  { font-weight: 700; letter-spacing: -0.03em; }
 .aw-eyebrow  { font-weight: 600; font-size: 11px; letter-spacing: 0.12em;
                text-transform: uppercase; color: var(--aw-ink-3); }
+
+.aw-app-shell {
+  background:
+    radial-gradient(circle at 15% 8%, rgba(205,181,231,0.35), transparent 26%),
+    radial-gradient(circle at 88% 12%, rgba(183,217,236,0.28), transparent 24%),
+    linear-gradient(180deg, var(--aw-cream-2) 0%, var(--aw-cream) 100%);
+}
+
+.aw-mobile-shell {
+  border-left: 1px solid rgba(231,221,207,0.75);
+  border-right: 1px solid rgba(231,221,207,0.75);
+}
+
+@media (max-width: 767px) {
+  .aw-mobile-shell {
+    max-width: none !important;
+    box-shadow: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
